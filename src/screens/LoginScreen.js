@@ -18,7 +18,9 @@ const LoginScreen = () => {
   const LoginToRegister = () => {
     navigation.navigate('RegisterScreen');
   };
-
+const LoginToHome = () => {
+  navigation.navigate('Bottomnav')
+}
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView style={styles.container} behavior="position">
@@ -30,7 +32,7 @@ const LoginScreen = () => {
             />
 
             <Text style={styles.header}>Welcome back!</Text>
-            <Text style={styles.secondheader}>Login to your account</Text>
+            <Text style={styles.secondheader}>Login</Text>
             <View style={{margin: 20}}>
               <FormInput labelText="Email" placeholderText="Enter your email" />
               <FormInput
@@ -49,7 +51,7 @@ const LoginScreen = () => {
               <Text style={styles.textcolor}>Forgot Password?</Text>
               </TouchableOpacity>
             </View>
-            <CustomButton labelText="Login" />
+            <CustomButton labelText="Login" handleOnPress={LoginToHome}/>
 
             <TouchableOpacity style={styles.signin}>
               <Image

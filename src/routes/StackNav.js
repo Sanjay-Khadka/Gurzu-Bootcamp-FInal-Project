@@ -1,23 +1,24 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-
+import BottomNav from './BottomTab';
 import {LoginScreen,RegisterScreen} from '../screens';
 
 
 const ScreenNav = () => {
-    const {Navigator, Screen} = createNativeStackNavigator()
+    const Stack = createNativeStackNavigator()
     
     return (
 <NavigationContainer>
-    <Navigator
+    <Stack.Navigator
      screenOptions={{
         headerShown: false
       }}>
-        <Screen name = 'LoginScreen' component={LoginScreen}/>
-        <Screen name = 'RegisterScreen' component={RegisterScreen}/>
+          <Stack.Screen name = 'Bottomnav' component={BottomNav}/>
+        <Stack.Screen name = 'LoginScreen' component={LoginScreen}/>
+        <Stack.Screen name = 'RegisterScreen' component={RegisterScreen}/>
        
-    </Navigator>
+    </Stack.Navigator>
 </NavigationContainer>
     )
 }

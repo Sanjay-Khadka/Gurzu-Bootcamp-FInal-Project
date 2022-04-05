@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StackNav from './routes';
+import {StackNav} from './routes';
 
 const GurzuLearning = () => {
     return <StackNav/>;

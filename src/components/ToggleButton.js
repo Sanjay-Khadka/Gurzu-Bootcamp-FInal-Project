@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 
-const CustomButton = ({
+const ToggleButton = ({
   labelText = '',
   handleOnPress = null,
   style,
@@ -16,19 +16,19 @@ const CustomButton = ({
         top:22,
         paddingVertical: 10,
         backgroundColor: '#004277',
-        borderRadius: 10,
-        width: 320,
+        borderRadius: 25,
+        width: 160,
+        height:65,
+        display:'flex',
+        justifyContent:'center',
         ...style,
       }
-      
-      }
-      onPress={handleOnPress}
-      {...more}>
-      <Text style={{textAlign: 'center', fontSize: 16,color:'#FFFF',fontFamily:'WorkSans-Regular',fontWeight:'400'}}>
+      }{...more}>
+      <Text style={{textAlign: 'center', fontSize: 14,color:'#FFFF',fontFamily:'WorkSans-Regular',fontWeight:'400'}}>
         {labelText}
       </Text>
     </TouchableOpacity>
   );
 };
 
-export default CustomButton;
+export default ToggleButton;

@@ -1,3 +1,3 @@
 import StackNav from './StackNav'
-
-export default StackNav;
+import BottomNav from './BottomTab';
+export {StackNav, BottomNav};
