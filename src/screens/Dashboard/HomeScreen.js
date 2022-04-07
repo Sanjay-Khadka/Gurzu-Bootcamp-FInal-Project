@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {ToggleButton} from '../../components';
-
+import Assignments from '../../components/ScreenModules/Assignments';
 import {HomeScreenHeader, Gradecontainer, Todo} from '../../components';
 
 const HomeScreen = () => {
@@ -59,7 +59,7 @@ const HomeScreen = () => {
     }
 
     if (assignment) {
-      return <Text>assignments</Text>;
+      return <Assignments/>;
     }
     if (recents) {
       return <Text>recent</Text>;
@@ -137,7 +137,7 @@ const HomeScreen = () => {
 
         <Text>upcoming task</Text>
       </View>
-      <View style={{flex: 2}}>{handleGestuer()}</View>
+      <View style={{flex:2}}>{handleGestuer()}</View>
     </View>
   );
 };

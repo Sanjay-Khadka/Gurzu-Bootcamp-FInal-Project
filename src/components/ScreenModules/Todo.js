@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Dimensions} from 'react-native';
 
+const {height, width} = Dimensions.get('window');
 const Todo = () => {
   const taskdetail = [
     {
@@ -177,12 +178,12 @@ const Todo = () => {
 
   const renderItem = ({item}) => {
     return (
-      <View style={styles.maincontainer}>
-        <View style={styles.container}>
-          <Text style={styles.textcourse}>{item.name}</Text>
-          <Text style={styles.textdate}>{item.date}</Text>
-        </View>
+      // <View style={styles.maincontainer}>
+      <View style={styles.container}>
+        <Text style={styles.textcourse}>{item.name}</Text>
+        <Text style={styles.textdate}>{item.date}</Text>
       </View>
+      // </View>
     );
   };
 
@@ -198,23 +199,22 @@ const Todo = () => {
 export default Todo;
 
 const styles = StyleSheet.create({
-  maincontainer: {
-    // backgroundColor:"#808080",
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    position: 'relative',
-    top: -3,
-    display: 'flex',
-    flex: 1,
-  },
+  // maincontainer: {
+  //   // backgroundColor:"#808080",
+  //   alignItems: 'center',
+  //   justifyContent: 'flex-start',
+  //   position: 'relative',
+  //   top: -3,
+  //   width:width,
+
+  // },
   container: {
-    display: 'flex',
-    flex: 1,
     flexDirection: 'row',
-    height: 75,
-    margin: 5,
+    height: height / 10,
+    margin: 6,
     borderRadius: 15,
-    width: '95%',
+    // width: '95%',
+    width: width,
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
