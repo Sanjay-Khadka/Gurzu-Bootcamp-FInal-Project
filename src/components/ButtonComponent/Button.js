@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity,Dimensions} from 'react-native';
 
+const {width, height} = Dimensions.get('window')
 const CustomButton = ({
   labelText = '',
   handleOnPress = null,
@@ -17,7 +18,7 @@ const CustomButton = ({
         paddingVertical: 10,
         backgroundColor: '#004277',
         borderRadius: 10,
-        width: 320,
+        width:width-30,
         ...style,
       }
       

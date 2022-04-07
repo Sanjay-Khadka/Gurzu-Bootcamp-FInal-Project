@@ -45,7 +45,49 @@ const Grades = () => {
             name:'UI',
             score:20,
             status:'submitted'
-        }
+        }, {
+          id:"1",
+          name:'backend',
+          score:20,
+          status:'done'
+      },
+      {
+          id:"2",
+          name:'frontend',
+          score:20,
+          status:'done'
+      },
+      {
+          id:"3",
+          name:'js',
+          score:20,
+          status:'done'
+      },
+      {
+          id:"4",
+          name:'UI',
+          score:20,
+          status:'done'
+      },
+      {
+          id:"5",
+          name:'frontend',
+          score:20,
+          status:'done'
+      },
+      {
+          id:"6",
+          name:'js',
+          score:20,
+          status:'done'
+      },
+      {
+          id:"20",
+          name:'asdfgsafkasf',
+          score:20,
+          status:'submitted'
+      }
+  
     ]
 
     const List = ({scores}) => {

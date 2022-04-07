@@ -6,59 +6,112 @@ import {
   TouchableOpacity,
   Image,
   KeyboardAvoidingView,
+  Dimensions,
+  ScrollView,
+  Alert
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {CustomButton, FormInput} from '../components';
+import {CustomButton, FormInput} from '../../components';
+import axios from 'axios';
+const {width, height} = Dimensions.get('window');
 
 const RegisterScreen = () => {
+const[firstname, setFname] = useState('')
+const[lastname, setLname] = useState('')
+const[registerEmail, setRegEmail] = useState('')
+const[registerPassword, setregPassword] = useState('')
+const[confirmPassword, setConfirmPass] = useState('')
+
  const navigation = useNavigation();
 
  const RegisterToLogin = () =>{
      navigation.popToTop('RegisterScreen')
  }
+
+ const handleRegister = () => {
+  var axios = require('axios');
+var data = JSON.stringify({
+  "user": {
+    "first_name":firstname,
+    "last_name": lastname,
+    "email": registerEmail,
+    "role": 1,
+    "password":registerPassword,
+    "password_confirmation": confirmPassword
+  }
+});
+
+var config = {
+  method: 'post',
+  url: 'http://d0b8-103-41-172-114.ngrok.io/users',
+  headers: { 
+    'Content-Type': 'application/json'
+  },
+  data : data
+};
+
+axios(config)
+.then(function (response) {
+  console.log(JSON.stringify(response.data));
+})
+.catch(function (error) {
+  console.log(error);
+});
+
+
+ }
     return (
-    <View style={styles.container}>
-      <KeyboardAvoidingView style={styles.container} behavior="position">
-        <View style={styles.container1}>
-          <View style={styles.innercontainer}>
+      <KeyboardAvoidingView style={styles.container} behavior='height'>
+          <ScrollView>
+           <View style={styles.headercontainer}>
             <Image
               style={styles.logo}
-              source={require('../assets/gurzuIcon.png')}
+              source={require('../../assets/gurzuIcon.png')}
             />
 
             <Text style={styles.header}>Register</Text>
-            <View>
+            </View>
               <FormInput
                 labelText="First Name"
                 placeholderText="Enter your first name"
-              style={styles.input}
+              value={firstname}
+              onChangeText={fname=> setFname(fname)}
               />
               <FormInput
                 labelText="Last Name"
                 placeholderText="Enter your last name"
+                value={lastname}
+                onChangeText={lname=> setLname(lname)}
               />
-              <FormInput labelText="Email" placeholderText="Enter your email" />
+              <FormInput labelText="Email" placeholderText="Enter your email"
+               value={registerEmail}
+              onChangeText={regemail=> setRegEmail(regemail)}/>
               <FormInput
                 labelText="Password"
                 placeholderText="Enter your password"
+                value={registerPassword}
+                onChangeText={regpass=> setregPassword(regpass)}
+                secureTextEntry={true}
               />
               <FormInput
                 labelText="Confirm Password"
                 placeholderText="Re-Enter your password"
+                value={confirmPassword}
+                onChangeText={passconfirm=> setConfirmPass(passconfirm)}
+                secureTextEntry={true}
               />
-            </View>
 
-            <CustomButton labelText="Register" style={styles.registerButton}/>
+            <CustomButton labelText="Register" style={styles.registerButton}
+            onPress={()=>handleRegister()}
+            />
             <View style={styles.infocontainer}>
               <Text style={styles.questiontext}>Already have an account?</Text>
               <TouchableOpacity onPress={RegisterToLogin}>
                 <Text style={styles.questionbutton}>Login</Text>
               </TouchableOpacity>
             </View>
-          </View>
-        </View>
+            </ScrollView>
       </KeyboardAvoidingView>
-    </View>
   );
 };
 
@@ -72,72 +125,31 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  container1: {
-    display: 'flex',
-    backgroundColor: '#FFFF',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    bottom: 80,
-  },
-  innercontainer: {
-    display: 'flex',
-    backgroundColor: '#FFFF',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    position: 'relative',
-    top: 143,
+ 
+
+  headercontainer:{
+    flexDirection:'column',
+    justifyContent:'center',
+    alignItems:'center',
+    height:height/4,
   },
 
   logo: {
-    position: 'relative',
     height: 97,
     width: 97,
   },
   header: {
     fontFamily: 'WorkSans-Regular',
-    position: 'relative',
-    width: 140,
-    height: 43,
-    top: 5,
-    left: 10,
     fontSize: 32,
     fontWeight: '400',
     color: '#004277',
     fontWeight: '400',
   },
-input:{
-marginTop:-2
-},
+
 registerButton:{
     marginTop:-5
 },
-  signin: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginVertical: 5,
-    position: 'relative',
-    top: 22,
-    paddingVertical: 10,
-    backgroundColor: '#FFFF',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#004277',
-    width: 320,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  },
-  signintext: {
-    textAlign: 'center',
-    fontSize: 16,
-    color: '#000000',
-    fontFamily: 'WorkSans-Regular',
-    fontWeight: '500',
-    color: '#004277',
-    marginRight: 50,
-  },
+
   questiontext: {
     marginTop: 30,
     color: '#616161',
@@ -151,6 +163,7 @@ registerButton:{
     color: '#004277',
     fontSize: 13,
     fontFamily: 'WorkSans-Regular',
+    textAlign:'left'
   },
 
   textcolor: {
@@ -160,9 +173,11 @@ registerButton:{
     fontSize: 13,
   },
   infocontainer: {
+    justifyContent:'center',
+    alignItems:'center',
     display: 'flex',
     position:'relative',
-    bottom:12,
     flexDirection: 'row',
+    
   },
 });

@@ -1,5 +1,8 @@
 import React from 'react';
-import {View, Text, Image,StyleSheet} from 'react-native';
+import {View, Text, Image,StyleSheet, Dimensions} from 'react-native';
+
+const {height, weight} = Dimensions.get('window')
+
 const HomeScreenHeader = () =>{
 return(
     <View style={styles.header}>
@@ -8,7 +11,7 @@ return(
     <Text style={styles.userinfo}>Sanjay Khadka </Text>
     </View>
      
-     <Image style={styles.img} source={require('../assets/profile.png')} />
+     <Image style={styles.img} source={require('../../assets/profile.png')} />
 
     </View>
 )
@@ -19,7 +22,7 @@ const styles = StyleSheet.create({
     header:{
         position:'relative',
         top:0,
-        height:85,
+        height:height/9,
         backgroundColor:'#004277',
         borderBottomLeftRadius:20,
         borderBottomRightRadius:20,

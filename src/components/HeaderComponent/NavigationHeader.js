@@ -1,5 +1,8 @@
 import React from 'react';
-import {View, Text, Image,StyleSheet} from 'react-native';
+import {View, Text, Image,StyleSheet, Dimensions} from 'react-native';
+
+const {width, height} = Dimensions.get('window');
+
 const NavigationHeader = ({
   Title='',
  
@@ -8,11 +11,9 @@ const NavigationHeader = ({
 return(
     <View style={styles.header} {...more}>
     <View style={styles.headertitle} >
-    {/* <Text style={styles.greetingtext}>Hi</Text> */}
     <Text style={styles.headertitle}>{Title} </Text>
     </View>
      
-     {/* <Image style={styles.img} source={require('../assets/profile.png')} /> */}
 
     </View>
 )
@@ -21,13 +22,12 @@ export default NavigationHeader;
 
 const styles = StyleSheet.create({
     header:{
+      width:width,
         position:'relative',
-        top:0,
-        height:85,
+        height:height/9,
         backgroundColor:'#004277',
         borderBottomLeftRadius:20,
         borderBottomRightRadius:20,
-        display:'flex',
         justifyContent:'center',
         padding:10,
         flexDirection:'row',
