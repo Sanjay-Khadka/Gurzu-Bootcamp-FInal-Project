@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -10,15 +10,16 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 const {width, height} = Dimensions.get('window');
-const FormInput = ({
+const PasswordInput = ({
   labelText = '',
   placeholderText = '',
   onChangeText = null,
   value = null,
-
-  secureTextEntry = null,
+  handleOnPress = null,
+  secureTextEntry ,
   ...more
 }) => {
+  const [visible, setVisible] = useState(true);
   return (
     <View style={{marginTop: 8}}>
       <Text style={styles.labelstyle}>{labelText}</Text>
@@ -29,13 +30,22 @@ const FormInput = ({
           placeholderTextColor="#2971AB"
           onChangeText={onChangeText}
           value={value}
+          secureTextEntry={visible}
         />
+
+        <TouchableOpacity onPress={() => setVisible(!visible)}>
+          <Icon
+            color={'#2971AB'}
+            name={visible ? 'eye-off-outline' : 'eye-outline'}
+            size={20}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export default FormInput;
+export default PasswordInput;
 
 const styles = StyleSheet.create({
   labelstyle: {

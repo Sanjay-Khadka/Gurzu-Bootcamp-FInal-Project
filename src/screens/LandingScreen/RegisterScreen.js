@@ -8,110 +8,98 @@ import {
   KeyboardAvoidingView,
   Dimensions,
   ScrollView,
-  Alert
+  Alert,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {CustomButton, FormInput} from '../../components';
-import axios from 'axios';
+import {CustomButton, FormInput, PasswordInput} from '../../components';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../redux/actions';
 const {width, height} = Dimensions.get('window');
 
 const RegisterScreen = () => {
-const[firstname, setFname] = useState('')
-const[lastname, setLname] = useState('')
-const[registerEmail, setRegEmail] = useState('')
-const[registerPassword, setregPassword] = useState('')
-const[confirmPassword, setConfirmPass] = useState('')
+  const [firstname, setFname] = useState('');
+  const [lastname, setLname] = useState('');
+  const [registerEmail, setRegEmail] = useState('');
+  const [registerPassword, setregPassword] = useState('');
+  const [confirmPassword, setConfirmPass] = useState('');
+  const [visible, setVisible] = useState(false)
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
 
- const navigation = useNavigation();
+  const RegisterToLogin = () => {
+    navigation.popToTop('RegisterScreen');
+  };
 
- const RegisterToLogin = () =>{
-     navigation.popToTop('RegisterScreen')
- }
+  const handleRegister = () => {
+    var registerdata = JSON.stringify({
+      user: {
+        first_name: firstname,
+        last_name: lastname,
+        email: registerEmail,
+        role: 1,
+        password: registerPassword,
+        password_confirmation: confirmPassword,
+      },
+    });
+    dispatch(registerUser(registerdata));
+  };
+  return (
+    <KeyboardAvoidingView style={styles.container} behavior="height">
+      <ScrollView>
+        <View style={styles.headercontainer}>
+          <Image
+            style={styles.logo}
+            source={require('../../assets/gurzuIcon.png')}
+          />
 
- const handleRegister = () => {
-  var axios = require('axios');
-var data = JSON.stringify({
-  "user": {
-    "first_name":firstname,
-    "last_name": lastname,
-    "email": registerEmail,
-    "role": 1,
-    "password":registerPassword,
-    "password_confirmation": confirmPassword
-  }
-});
+          <Text style={styles.header}>Register</Text>
+        </View>
+        <FormInput
+          labelText="First Name"
+          placeholderText="Enter your first name"
+          value={firstname}
+          onChangeText={fname => setFname(fname)}
+        />
+        <FormInput
+          labelText="Last Name"
+          placeholderText="Enter your last name"
+          value={lastname}
+          onChangeText={lname => setLname(lname)}
+        />
+        <FormInput
+          labelText="Email"
+          placeholderText="Enter your email"
+          value={registerEmail}
+          onChangeText={regemail => setRegEmail(regemail)}
+        />
+        <PasswordInput
+          labelText="Password"
+          placeholderText="Enter your password"
+          value={registerPassword}
+          onChangeText={regpass => setregPassword(regpass)}
+          secureTextEntry={visible}
+        />
+        <PasswordInput
+          labelText="Confirm Password"
+          placeholderText="Re-Enter your password"
+          value={confirmPassword}
+          onChangeText={passconfirm => setConfirmPass(passconfirm)}
+          secureTextEntry={true}
+        />
 
-var config = {
-  method: 'post',
-  url: 'http://d0b8-103-41-172-114.ngrok.io/users',
-  headers: { 
-    'Content-Type': 'application/json'
-  },
-  data : data
-};
-
-axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data));
-})
-.catch(function (error) {
-  console.log(error);
-});
-
-
- }
-    return (
-      <KeyboardAvoidingView style={styles.container} behavior='height'>
-          <ScrollView>
-           <View style={styles.headercontainer}>
-            <Image
-              style={styles.logo}
-              source={require('../../assets/gurzuIcon.png')}
-            />
-
-            <Text style={styles.header}>Register</Text>
-            </View>
-              <FormInput
-                labelText="First Name"
-                placeholderText="Enter your first name"
-              value={firstname}
-              onChangeText={fname=> setFname(fname)}
-              />
-              <FormInput
-                labelText="Last Name"
-                placeholderText="Enter your last name"
-                value={lastname}
-                onChangeText={lname=> setLname(lname)}
-              />
-              <FormInput labelText="Email" placeholderText="Enter your email"
-               value={registerEmail}
-              onChangeText={regemail=> setRegEmail(regemail)}/>
-              <FormInput
-                labelText="Password"
-                placeholderText="Enter your password"
-                value={registerPassword}
-                onChangeText={regpass=> setregPassword(regpass)}
-                secureTextEntry={true}
-              />
-              <FormInput
-                labelText="Confirm Password"
-                placeholderText="Re-Enter your password"
-                value={confirmPassword}
-                onChangeText={passconfirm=> setConfirmPass(passconfirm)}
-                secureTextEntry={true}
-              />
-
-            <CustomButton labelText="Register" style={styles.registerButton}
-            onPress={()=>handleRegister()}
-            />
-            <View style={styles.infocontainer}>
-              <Text style={styles.questiontext}>Already have an account?</Text>
-              <TouchableOpacity onPress={RegisterToLogin}>
-                <Text style={styles.questionbutton}>Login</Text>
-              </TouchableOpacity>
-            </View>
-            </ScrollView>
-      </KeyboardAvoidingView>
+        <CustomButton
+          labelText="Register"
+          style={styles.registerButton}
+          onPress={() => handleRegister()}
+        />
+        <View style={styles.infocontainer}>
+          <Text style={styles.questiontext}>Already have an account?</Text>
+          <TouchableOpacity onPress={RegisterToLogin}>
+            <Text style={styles.questionbutton}>Login</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -125,13 +113,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
- 
 
-  headercontainer:{
-    flexDirection:'column',
-    justifyContent:'center',
-    alignItems:'center',
-    height:height/4,
+  headercontainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: height / 4,
   },
 
   logo: {
@@ -146,9 +133,9 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
 
-registerButton:{
-    marginTop:-5
-},
+  registerButton: {
+    marginTop: -5,
+  },
 
   questiontext: {
     marginTop: 30,
@@ -163,7 +150,7 @@ registerButton:{
     color: '#004277',
     fontSize: 13,
     fontFamily: 'WorkSans-Regular',
-    textAlign:'left'
+    textAlign: 'left',
   },
 
   textcolor: {
@@ -173,11 +160,10 @@ registerButton:{
     fontSize: 13,
   },
   infocontainer: {
-    justifyContent:'center',
-    alignItems:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     display: 'flex',
-    position:'relative',
+    position: 'relative',
     flexDirection: 'row',
-    
   },
 });

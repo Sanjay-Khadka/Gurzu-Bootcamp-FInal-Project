@@ -1,5 +1,8 @@
 import React from 'react';
-import {Calendar} from 'react-native-calendario';
+// import {Calendar} from 'react-native-calendario';
+import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+
+
 import {View, Text} from 'react-native';
 
 import {NavigationHeader} from '../../components';
@@ -10,15 +13,15 @@ const CalendarScreen = () => {
       <NavigationHeader Title="Calender" />
       <Calendar
         onChange={range => console.log(range)}
+       
         minDate={new Date(2018, 3, 20)}
         startDate={new Date(2018, 3, 30)}
         endDate={new Date(2018, 4, 5)}
         numberOfMonths="1"
         theme={{
-          activeDayColor: {
-          },
+          activeDayColor: {},
           monthTitleTextStyle: {
-            color: '#0000',
+            color: '#004277',
             fontWeight: '300',
             fontSize: 16,
           },
@@ -48,7 +51,7 @@ const CalendarScreen = () => {
           dayOutOfRangeTextStyle: {},
           todayContainerStyle: {
             backgroundColor: '#004277',
-            borderRadius:70
+            borderRadius: 70,
           },
           todayTextStyle: {
             color: '#FFFFFF',

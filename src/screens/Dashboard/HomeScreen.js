@@ -3,13 +3,14 @@ import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {ToggleButton} from '../../components';
 import Assignments from '../../components/ScreenModules/Assignments';
 import {HomeScreenHeader, Gradecontainer, Todo} from '../../components';
-
+import LottieView from 'lottie-react-native';
 const HomeScreen = () => {
   const [grade, setGrade] = useState(false);
   const [todo, setTodo] = useState(false);
   const [assignment, setAssignment] = useState(false);
   const [recents, setRecent] = useState(false);
   const [color, setColor] = useState(false);
+
   let backgroundColor = null;
   const handleColor = () => {
     setColor(!color);
@@ -17,40 +18,30 @@ const HomeScreen = () => {
 
   const handleTodoPress = () => {
     setTodo(!todo);
-    setGrade(grade);
-    setAssignment(assignment);
-    setRecent(recents);
+    setGrade(false);
+    setAssignment(false);
+    setRecent(false);
   };
   const handleGradePress = () => {
     setGrade(!grade);
-    setTodo(todo);
-    setAssignment(assignment);
-    setRecent(recents);
+    setTodo(false);
+    setAssignment(false);
+    setRecent(false);
   };
   const assignPress = () => {
     setAssignment(!assignment);
-    setGrade(grade);
-    setTodo(todo);
-    setRecent(recents);
+    setGrade(false);
+    setTodo(false);
+    setRecent(false);
   };
   const recentPress = () => {
     setRecent(!recents);
-    setGrade(grade);
-    setAssignment(assignment);
-    setTodo(todo);
+    setGrade(false);
+    setAssignment(false);
+    setTodo(false);
   };
-  // { ()=>  setAssignment(!assignment)}
-  // { ()=>  setRecent(!recents)}
-
-  // if(grade){
-  // }
-  // if(assignment){
-  // }
-  // if(recents){
-  // }
 
   const handleGestuer = () => {
-    // handleButtonPress()
     if (grade) {
       return <Gradecontainer />;
     }
@@ -59,14 +50,12 @@ const HomeScreen = () => {
     }
 
     if (assignment) {
-      return <Assignments/>;
+      return <Assignments />;
     }
     if (recents) {
       return <Text>recent</Text>;
     }
   };
-
-  // const handleToggle = () => {};
 
   return (
     <View style={styles.container}>
@@ -75,69 +64,43 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.buttoncontainer}>
-        {!todo ? (
-          <ToggleButton
-            labelText="To-do"
-            textColor={true}
-            style={styles.togglebutton}
-            onPress={() => setTodo(!todo)}
-          />
-        ) : (
-          <ToggleButton
-            labelText="To-do"
-            style={styles.togglebutton1}
-            onPress={() => setTodo(!todo)}
-          />
-        )}
+        <ToggleButton
+          labelText="To-do"
+          iconname="checklist"
+          textColor={!todo}
+          style={!todo ? styles.togglebutton : styles.togglebutton1}
+          onPress={() => handleTodoPress()}
+        />
 
-        {!recents ? (
-          <ToggleButton
-            textColor={true}
-            labelText="Recent lessons"
-            style={styles.togglebutton}
-            onPress={() => setRecent(!recents)}
-          />
-        ) : (
-          <ToggleButton
-            labelText="Recent lessons"
-            style={styles.togglebutton1}
-            onPress={() => setRecent(!recents)}
-          />
-        )}
+        <ToggleButton
+          textColor={!recents}
+          iconname="history"
+          labelText="Recent lessons"
+          style={!recents ? styles.togglebutton : styles.togglebutton1}
+          onPress={() => recentPress()}
+        />
 
-        {!grade ? (
-          <ToggleButton
-            textColor={true}
-            labelText="My Grades"
-            style={styles.togglebutton}
-            onPress={() => setGrade(!grade)}
-          />
-        ) : (
-          <ToggleButton
-            labelText="My Grades"
-            style={styles.togglebutton1}
-            onPress={() => setGrade(!grade)}
-          />
-        )}
+        <ToggleButton
+          textColor={!grade}
+          labelText="My Grades"
+          iconname="issue-closed"
+          style={!grade ? styles.togglebutton : styles.togglebutton1}
+          onPress={() => handleGradePress()}
+        />
 
-        {!assignment ? (
-          <ToggleButton
-            textColor={true}
-            labelText="My Assignments"
-            style={styles.togglebutton}
-            onPress={() => setAssignment(!assignment)}
-          />
-        ) : (
-          <ToggleButton
-            labelText="My Assignments"
-            style={styles.togglebutton1}
-            onPress={() => setAssignment(!assignment)}
-          />
-        )}
-
-        <Text>upcoming task</Text>
+        <ToggleButton
+          textColor={!assignment}
+          iconname="project"
+          labelText="My Assignment"
+          style={!assignment ? styles.togglebutton : styles.togglebutton1}
+          onPress={() => assignPress()}
+        />
       </View>
-      <View style={{flex:2}}>{handleGestuer()}</View>
+     
+      <View style={styles.content}>
+       {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
+      {handleGestuer()}
+      </View>
     </View>
   );
 };
@@ -169,4 +132,8 @@ const styles = StyleSheet.create({
     marginEnd: 10,
     backgroundColor: '#004277',
   },
+  content:{
+    flex:2,
+    justifyContent:'center',
+  alignItems:'center'  }
 });

@@ -1,12 +1,27 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationHeader} from '../../components';
 import {CustomButton} from '../../components';
 import Icon from 'react-native-vector-icons/dist/Feather';
+import {StackNav} from '../../routes';
+import {Switch} from '@rneui/base';
+const {height, width} = Dimensions.get('window');
 
 const SettingsScreen = () => {
-  const navigation = useNavigation();
+
+  const maintoAuth = () =>{
+    bottomnavigation.navigate('stack')
+  }
+
+  const bottomnavigation = useNavigation();
   return (
     <View style={styles.maincontainer}>
       <NavigationHeader Title="Settings" />
@@ -15,23 +30,31 @@ const SettingsScreen = () => {
           <Icon color={'#004277'} name="user" size={20} />
           <Text style={styles.account}>Account</Text>
         </View>
+
         <View style={styles.settingtext}>
-          <TouchableOpacity>
+          <TouchableOpacity style={styles.buttonstyle}>
             <Text style={styles.settingsColor}>Edit Profile</Text>
+            <Icon color={'#616161'} name="chevron-right" size={20} />
           </TouchableOpacity>
-          <TouchableOpacity>
+
+          <TouchableOpacity style={styles.buttonstyle}>
             <Text style={styles.settingsColor}>Change password</Text>
+            <Icon color={'#616161'} name="chevron-right" size={20} />
           </TouchableOpacity>
         </View>
+
         <View style={styles.accountcontainer}>
           <Icon color={'#004277'} name="notification" size={20} />
           <Text style={styles.account}>Notifications</Text>
         </View>
-        <View style={styles.settingtext}>
-          <TouchableOpacity>
+
+        <View>
+          <TouchableOpacity style={styles.notificationcontainer}>
             <Text style={styles.settingsColor}>Notifications</Text>
+            <Switch onValueChange={console.warn('toggled')} />
           </TouchableOpacity>
         </View>
+
         <View style={styles.morecontainer}>
           <Icon color={'#004277'} name="plus" size={20} />
           <Text style={styles.account}>More</Text>
@@ -39,16 +62,16 @@ const SettingsScreen = () => {
         <View style={styles.settingtext}>
           <TouchableOpacity>
             <Text style={styles.settingsColor}>Language</Text>
-
           </TouchableOpacity>
           <TouchableOpacity>
             <Text style={styles.settingsColor}>Country</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
         </View>
-        <CustomButton
-          labelText="Log-out"
-          handleOnPress={() => navigation.navigate('LoginScreen')}
-        />
+        <TouchableOpacity style={styles.logoutbutton} onPress={maintoAuth}>
+          <Icon color={'#FF0000'} name="log-out" size={20} />
+
+          <Text style={styles.logoutbuttonText}>Logout</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -57,15 +80,18 @@ export default SettingsScreen;
 
 const styles = StyleSheet.create({
   maincontainer: {
-    flex:3,
-    // justifyContent:'center',
+    flex: 3,
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    backgroundColor: '#FFFFFF',
   },
   settingcontainer: {
     display: 'flex',
-    flex:2,
+    // width:'90%',
+    // height:height-300,
+    flex: 2,
     // top: 20,
-    justifyContent:'space-around'
+    justifyContent: 'flex-start',
 
     // backgroundColor:'#000000'
   },
@@ -73,26 +99,33 @@ const styles = StyleSheet.create({
   accountcontainer: {
     flexDirection: 'row',
     alignItems: 'baseline',
-    borderBottomWidth:0.5,
-    paddingBottom:12,
-    borderBottomColor:'#616161'
+    borderBottomWidth: 0.5,
+    paddingBottom: 12,
+    borderBottomColor: '#616161',
+    marginTop: 35,
     // backgroundColor: '#000000',
   },
   notificationcontainer: {
     flexDirection: 'row',
     alignItems: 'baseline',
-    borderBottomWidth:0.5,
-    paddingBottom:12,
-    borderBottomColor:'#616161'
-    // backgroundColor: '#000000',
+    borderBottomWidth: 0.5,
+    paddingBottom: 12,
+    borderBottomColor: '#616161',
+    backgroundColor: '#000000',
   },
   morecontainer: {
     flexDirection: 'row',
     alignItems: 'baseline',
-    borderBottomWidth:0.5,
-    paddingBottom:12,
-    borderBottomColor:'#616161',
+    borderBottomWidth: 0.5,
+    paddingBottom: 12,
+    borderBottomColor: '#616161',
+    marginTop: 35,
     // backgroundColor: '#000000',
+  },
+  notificationcontainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   account: {
     color: '#004277',
@@ -102,11 +135,37 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   settingsColor: {
-    
     marginVertical: 8,
     color: '#616161',
     fontSize: 14,
     fontFamily: 'WorkSans-Regular',
     fontWeight: '400',
+  },
+  logoutbutton: {
+    marginVertical: '20%',
+    position: 'relative',
+    top: 22,
+    justifyContent: 'center',
+    // alignItems:'center',
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: '#004277',
+    paddingVertical: 10,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    width: width - 30,
+  },
+  logoutbuttonText: {
+    marginHorizontal: 5,
+    textAlign: 'center',
+    fontSize: 16,
+    color: '#FF0000',
+    fontFamily: 'WorkSans-Regular',
+    fontWeight: '600',
+  },
+  buttonstyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
 });

@@ -3,194 +3,48 @@ import {View, Text, StyleSheet, FlatList, Dimensions} from 'react-native';
 
 const {height, width} = Dimensions.get('window');
 const Todo = () => {
-  const taskdetail = [
-    {
-      id: '1',
-      name: 'backend',
-      date: 2022,
-    },
-    {
-      id: '2',
-      name: 'frontend',
-      date: 2022,
-    },
-    {
-      id: '3',
-      name: 'js',
-      date: 2022,
-    },
-    {
-      id: '4',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '5',
-      name: 'frontend',
-      date: 2022,
-    },
-    {
-      id: '6',
-      name: 'js',
-      date: 2022,
-    },
-    {
-      id: '7',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '8',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '9',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '10',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '11',
-      name: 'frontend',
-      date: 2022,
-    },
-    {
-      id: '12',
-      name: 'backend',
-      date: 2022,
-    },
-    {
-      id: '13',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '14',
-      name: 'frontendasfd',
-      date: 2022,
-    },
-    {
-      id: '15',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '16',
-      name: 'frontend',
-      date: 2022,
-    },
-    {
-      id: '17',
-      name: 'what',
-      date: 2022,
-    },
-    {
-      id: '18',
-      name: 'frontend',
-      date: 2022,
-    },
-    {
-      id: '19',
-      name: 'backend',
-      date: 2022,
-    },
-    {
-      id: '20',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '21',
-      name: 'frontendasfd',
-      date: 2022,
-    },
-    {
-      id: '22',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '23',
-      name: 'frontend',
-      date: 2022,
-    },
-    {
-      id: '24',
-      name: 'what',
-      date: 2022,
-    },
-    {
-      id: '15',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '16',
-      name: 'frontend',
-      date: 2022,
-    },
-    {
-      id: '17',
-      name: 'what',
-      date: 2022,
-    },
-    {
-      id: '18',
-      name: 'frontend',
-      date: 2022,
-    },
-    {
-      id: '19',
-      name: 'backend',
-      date: 2022,
-    },
-    {
-      id: '20',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '21',
-      name: 'frontendasfd',
-      date: 2022,
-    },
-    {
-      id: '22',
-      name: 'UI',
-      date: 2022,
-    },
-    {
-      id: '23',
-      name: 'frontend',
-      date: 2022,
-    },
-    {
-      id: '24',
-      name: 'last page',
-      date: 2022,
-    },
-  ];
+  const tasks = {
+    course: [
+      {
+        id: 7,
+        name: 'Node.js',
+        is_publish: false,
+        user_id: 15,
+        description: 'Web',
+        created_at: '2022-04-08T03:59:18.729Z',
+        updated_at: '2022-04-08T03:59:18.803Z',
+        thumbnail_blob: {
+          id: 13,
+          key: 'bucgsn7nbdk6bk6wtqq0ibylrqww',
+          filename: 'download.jpeg',
+          content_type: 'image/jpeg',
+          metadata: {
+            identified: true,
+            analyzed: true,
+          },
+          service_name: 'local',
+          byte_size: 5559,
+          checksum: 'zzCgoIgSJB7g366sW5E7aA==',
+          created_at: '2022-04-08T03:59:18.746Z',
+        },
+      },
+    ],
+  };
 
   const renderItem = ({item}) => {
+    console.log(taskdetail.course.name);
     return (
-      // <View style={styles.maincontainer}>
       <View style={styles.container}>
-        <Text style={styles.textcourse}>{item.name}</Text>
-        <Text style={styles.textdate}>{item.date}</Text>
+        <Text style={styles.textcourse}>{item.course.name}</Text>
+        <Text style={styles.textdate}>{item.course.id}</Text>
       </View>
-      // </View>
     );
   };
 
   return (
     <FlatList
-      data={taskdetail}
-      keyExtractor={item => item.id}
+      data={taskdetail.course}
+      keyExtractor={item => item.course.id}
       renderItem={renderItem}
     />
   );
@@ -199,15 +53,6 @@ const Todo = () => {
 export default Todo;
 
 const styles = StyleSheet.create({
-  // maincontainer: {
-  //   // backgroundColor:"#808080",
-  //   alignItems: 'center',
-  //   justifyContent: 'flex-start',
-  //   position: 'relative',
-  //   top: -3,
-  //   width:width,
-
-  // },
   container: {
     flexDirection: 'row',
     height: height / 10,

@@ -11,12 +11,12 @@ import {
 } from 'react-native';
 import axios from 'axios';
 import {loginUser} from '../../redux/actions';
-// import {useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import {CheckBox, Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 
-import {FormInput} from '../../components/';
+import {FormInput,PasswordInput} from '../../components/';
 import {CustomButton} from '../../components/';
 
 const {height, width} = Dimensions.get('window');
@@ -25,8 +25,9 @@ const LoginScreen = () => {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setPassword] = useState('');
   const [check2, setCheck2] = useState(false);
+  const [isvisible, setVisibility] = useState(false);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const LoginToRegister = () => {
@@ -34,38 +35,20 @@ const LoginScreen = () => {
   };
 
   const LoginToHome = async () => {
-    // if (loginEmail === '' || loginPassword === '') {
-    //   Alert.alert("please don't leave the fields the empty");
-    //   return;
-    // } else {
-      navigation.navigate('Bottomnav');
+    if (loginEmail === '' || loginPassword === '') {
+      alert('empty');
       return;
-      // dispatch(loginUser(loginEmail, loginPassword));
+    } else {
       var data = JSON.stringify({
         user: {
           email: loginEmail,
           password: loginPassword,
         },
       });
+      navigation.navigate('bottom');
+    }
 
-      var config = {
-        method: 'post',
-        url: 'http://96c7-103-41-172-114.ngrok.io/users/sign_in',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data: data,
-      };
-
-      await axios(config)
-        .then(response => {
-          const responseJson = response.json();
-          console.warn(responseJson);
-        })
-        .catch(error => {
-          console.warn(error);
-        });
-    
+    dispatch(loginUser(data));
   };
   const LoginToForgotPassword = () => {
     navigation.navigate('ForgotPassword');
@@ -89,13 +72,14 @@ const LoginScreen = () => {
             value={loginEmail}
             onChangeText={email => setLoginEmail(email)}
           />
-          <FormInput
+          <PasswordInput
             labelText="Password"
             placeholderText="Enter your password"
             value={loginPassword}
             onChangeText={password => setPassword(password)}
             secureTextEntry={true}
           />
+
         </View>
         {/* form input view end */}
 
@@ -133,14 +117,6 @@ const LoginScreen = () => {
 
         {/* button for email login and google signin */}
         <CustomButton labelText="Login" handleOnPress={LoginToHome} />
-
-        <TouchableOpacity style={styles.signin}>
-          <Image
-            style={styles.icon}
-            source={require('../../assets/google.png')}
-          />
-          <Text style={styles.signintext}>Sign in with google</Text>
-        </TouchableOpacity>
 
         {/* buttons end */}
 

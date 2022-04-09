@@ -1,5 +1,5 @@
 package com.gurzulearning;
-
+// import com.airbnb.android.react.lottie.LottiePackage;
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {

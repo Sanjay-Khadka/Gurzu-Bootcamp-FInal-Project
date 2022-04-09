@@ -1,3 +1,3 @@
-import FormInput from "./FormInput";
-import CustomInput from "./CustomInput";
-export {CustomInput, FormInput} 
+import FormInput from './FormInput';
+import PasswordInput from './PasswordInput';
+export {FormInput, PasswordInput};

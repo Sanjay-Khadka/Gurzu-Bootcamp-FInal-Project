@@ -1,9 +1,8 @@
 import React from 'react';
-
-import {StackNav} from './routes';
+import RootNavigator from './routes/RootNavigator';
 
 const GurzuLearning = () => {
-  return <StackNav />;
+  return <RootNavigator />;
 };
 
 export default GurzuLearning;

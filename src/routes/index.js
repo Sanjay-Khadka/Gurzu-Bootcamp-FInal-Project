@@ -1,3 +1,4 @@
 import StackNav from './StackNav'
 import BottomNav from './BottomTab';
-export {StackNav, BottomNav};
+import RootNavigator from './RootNavigator';
+export {StackNav, BottomNav, RootNavigator};
