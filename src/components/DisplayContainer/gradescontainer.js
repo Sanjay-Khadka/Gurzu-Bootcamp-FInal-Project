@@ -9,13 +9,12 @@ const {height, width} = Dimensions.get('window');
 const Gradecontainer = () => {
   return (
     <View style={styles.gradescontainer}>
-        {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
+      {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
       <View style={styles.titlecontainer}>
         <Text style={styles.titlestyle}>Course name</Text>
         <Text style={styles.titlestyle}>Score achieved</Text>
         <Text style={styles.titlestyle}>Status</Text>
       </View>
- 
 
       <Grades />
       <View style={styles.gradesfooter}>

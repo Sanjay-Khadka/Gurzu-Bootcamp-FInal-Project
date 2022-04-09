@@ -36,7 +36,7 @@ export default Todo;
 
 const styles = StyleSheet.create({
   container: {
-    elevation:10,
+    elevation: 10,
     flexDirection: 'row',
     height: height / 10,
     margin: 6,

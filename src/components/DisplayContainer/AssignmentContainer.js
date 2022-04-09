@@ -7,7 +7,7 @@ const {width, height} = Dimensions.get('window');
 const AssignmentContainer = () => {
   return (
     <View style={styles.assignmentcontainer}>
-              {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
+      {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
 
       <Assignments />
     </View>

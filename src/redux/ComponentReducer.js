@@ -2,7 +2,7 @@ import {getTask, getGrade, getAssignment, getCourse} from './actions';
 
 const initialState = {Assignment: [], Course: [], Task: [], Grade: []};
 
-const AuthReducer = (state = initialState, action) => {
+const ComponentReducer = (state = initialState, action) => {
   switch (action.type) {
     case getTask:
       return {
@@ -31,4 +31,4 @@ const AuthReducer = (state = initialState, action) => {
   }
 };
 
-export default AuthReducer;
+export default ComponentReducer;

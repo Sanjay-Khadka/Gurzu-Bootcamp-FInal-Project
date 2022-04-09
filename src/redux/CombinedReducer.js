@@ -1,4 +1,8 @@
 import {combineReducers} from 'redux';
-import loginReducer from './Reducer';
-const AllReducers = combineReducers({userinfo: loginReducer});
+import AuthReducer from './AuthReducer';
+import ComponentReducer from './ComponentReducer';
+const AllReducers = combineReducers({
+  authReducer: AuthReducer,
+  mainscreen: ComponentReducer,
+});
 export default AllReducers;
