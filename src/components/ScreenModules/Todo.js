@@ -3,48 +3,30 @@ import {View, Text, StyleSheet, FlatList, Dimensions} from 'react-native';
 
 const {height, width} = Dimensions.get('window');
 const Todo = () => {
-  const tasks = {
-    course: [
-      {
-        id: 7,
-        name: 'Node.js',
-        is_publish: false,
-        user_id: 15,
-        description: 'Web',
-        created_at: '2022-04-08T03:59:18.729Z',
-        updated_at: '2022-04-08T03:59:18.803Z',
-        thumbnail_blob: {
-          id: 13,
-          key: 'bucgsn7nbdk6bk6wtqq0ibylrqww',
-          filename: 'download.jpeg',
-          content_type: 'image/jpeg',
-          metadata: {
-            identified: true,
-            analyzed: true,
-          },
-          service_name: 'local',
-          byte_size: 5559,
-          checksum: 'zzCgoIgSJB7g366sW5E7aA==',
-          created_at: '2022-04-08T03:59:18.746Z',
-        },
-      },
-    ],
-  };
+  const tasks = [
+    {id: 1, name: 'frontend'},
+    {id: 1, name: 'frontend'},
+    {id: 1, name: 'frontend'},
+    {id: 1, name: 'frontend'},
+    {id: 1, name: 'frontend'},
+    {id: 1, name: 'frontend'},
+    {id: 1, name: 'frontend'},
+    {id: 1, name: 'frontend'},
+  ];
 
   const renderItem = ({item}) => {
-    console.log(taskdetail.course.name);
     return (
       <View style={styles.container}>
-        <Text style={styles.textcourse}>{item.course.name}</Text>
-        <Text style={styles.textdate}>{item.course.id}</Text>
+        <Text style={styles.textcourse}>{item.name}</Text>
+        <Text style={styles.textdate}>{item.id}</Text>
       </View>
     );
   };
 
   return (
     <FlatList
-      data={taskdetail.course}
-      keyExtractor={item => item.course.id}
+      data={tasks}
+      keyExtractor={item => item.id}
       renderItem={renderItem}
     />
   );
@@ -54,6 +36,7 @@ export default Todo;
 
 const styles = StyleSheet.create({
   container: {
+    elevation:10,
     flexDirection: 'row',
     height: height / 10,
     margin: 6,

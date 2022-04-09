@@ -9,14 +9,13 @@ import {
   Dimensions,
   Alert,
 } from 'react-native';
-import axios from 'axios';
 import {loginUser} from '../../redux/actions';
 import {useDispatch} from 'react-redux';
 
 import {CheckBox, Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 
-import {FormInput,PasswordInput} from '../../components/';
+import {FormInput, PasswordInput} from '../../components/';
 import {CustomButton} from '../../components/';
 
 const {height, width} = Dimensions.get('window');
@@ -35,20 +34,21 @@ const LoginScreen = () => {
   };
 
   const LoginToHome = async () => {
-    if (loginEmail === '' || loginPassword === '') {
-      alert('empty');
-      return;
-    } else {
-      var data = JSON.stringify({
-        user: {
-          email: loginEmail,
-          password: loginPassword,
-        },
-      });
-      navigation.navigate('bottom');
-    }
+    navigation.navigate('bottom');
+    // if (loginEmail === '' || loginPassword === '') {
+    //   alert('empty');
+    //   return;
+    // } else {
+    //   var data = JSON.stringify({
+    //     user: {
+    //       email: loginEmail,
+    //       password: loginPassword,
+    //     },
+    //   });
+    // }
 
-    dispatch(loginUser(data));
+    // dispatch(loginUser(data));
+    
   };
   const LoginToForgotPassword = () => {
     navigation.navigate('ForgotPassword');
@@ -79,7 +79,6 @@ const LoginScreen = () => {
             onChangeText={password => setPassword(password)}
             secureTextEntry={true}
           />
-
         </View>
         {/* form input view end */}
 

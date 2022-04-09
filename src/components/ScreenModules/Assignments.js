@@ -1,96 +1,218 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 
 const {height, width} = Dimensions.get('window');
 const Assignments = () => {
   const taskdetail = [
     {
-      id: '24',
+      id: '2',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
     },
     {
-      id: '24',
+      id: '22',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
     },
     {
-      id: '24',
+      id: '1234',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
     },
     {
-      id: '24',
+      id: '21234',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
     },
     {
-      id: '24',
+      id: '24345',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
     },
     {
-      id: '24',
+      id: '2354',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
     },
     {
-      id: '24',
+      id: '2464',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
     },
     {
-      id: '24',
+      id: '24352',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
     },
     {
-      id: '24',
+      id: '24353',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
     },
     {
-      id: '24',
+      id: '24345',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
     },
     {
-      id: '24',
+      id: '2364',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
     },
     {
-      id: '24',
-      name: 'Frontend Develnt',
+      id: '24346',
+      name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '2436',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '2574',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '26784',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '23474',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '24457',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '24465',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '2446',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '2574',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '2374',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '265784',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '236574',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '2e5674',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '245674',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
+    },
+    {
+      id: '2874',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      assignment: 'Login Page',
     },
   ];
 
   const renderItem = ({item}) => {
     return (
       // <View style={styles.maincontainer}>
-      <View style={styles.container}>
-        <View style={styles.datetime}>
-          <Text style={styles.textdate}>{item.date}</Text>
-          <Text style={styles.textdate}>{item.time}</Text>
+      <TouchableOpacity>
+        <View style={styles.container}>
+          <View style={styles.datetime}>
+            <Text style={styles.textdate}>{item.date}</Text>
+            <Text style={styles.textdate}>{item.time}</Text>
+          </View>
+          <View style={styles.coursetitle}>
+            <Text style={styles.textcourse}>{item.name}</Text>
+            <View style={styles.coursedetail}>
+              <Text style={styles.assignment}>{item.assignment}</Text>
+              <Text style={styles.goto}>View assignment > </Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.coursetitle}>
-        <Text style={styles.textcourse}>{item.name}</Text>
-        </View>
-      </View>
-      // </View>
+      </TouchableOpacity>
     );
   };
 
@@ -109,50 +231,62 @@ const styles = StyleSheet.create({
   datetime: {
     flexDirection: 'column',
     borderRightWidth: 1,
-    alignItems:'center',
-    paddingHorizontal:10,
-    justifyContent:'space-around',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    justifyContent: 'space-around',
     borderRightColor: '#616161',
     // backgroundColor:'black',
-    height:60
+    height: 60,
   },
   container: {
+    elevation: 10,
     flexDirection: 'row',
-    height: height / 10,
+    height: height / 8,
     margin: 6,
     borderRadius: 15,
-   
-    width: width-10,
+
+    width: width - 10,
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
   },
-  coursetitle:{
-      height:height/11,
-      width:width-90,
+  coursetitle: {
+    height: height / 11,
+    width: width - 90,
     //   backgroundColor:'red',
-      justifyContent:'center',
-      alignItems:'stretch'
+    justifyContent: 'center',
+    alignItems: 'stretch',
   },
   textcourse: {
-    fontSize: 12,
-    // margin: 15,
-    color: '#000000',
-    // width: 65,
-    // height: 30,
+    fontSize: 16,
+    color: '#004277',
     fontWeight: '500',
     fontFamily: 'WorkSans',
-    paddingHorizontal:15,
+    paddingHorizontal: 15,
   },
   textdate: {
-    fontSize: 12,
-    // margin: 7,
-    color: '#000000',
-    // width: 65,
-
-    // height: 30,
+    fontSize: 16,
+    color: '#004277',
     fontWeight: '500',
     fontFamily: 'WorkSans-Regular',
   },
- 
+  coursedetail: {
+    width: 230,
+    alignItems: 'stretch',
+    marginHorizontal: 10,
+    justifyContent: 'space-around',
+  },
+  assignment: {
+    fontSize: 14,
+    color: '#616161',
+    fontWeight: '400',
+    fontFamily: 'WorkSans-Regular',
+  },
+  goto: {
+    fontSize: 12,
+    color: '#616161',
+    fontWeight: '400',
+    fontFamily: 'WorkSans-Regular',
+    textAlign: 'right',
+  },
 });

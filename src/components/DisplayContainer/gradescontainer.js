@@ -1,24 +1,22 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState, useEffect} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  Dimensions
-} from 'react-native';
-import Grades from './Grades';
-const {height,width} = Dimensions.get('window');
+import React from 'react';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import LottieView from 'lottie-react-native';
+
+import {Grades} from '../ScreenModules';
+
+const {height, width} = Dimensions.get('window');
 const Gradecontainer = () => {
   return (
     <View style={styles.gradescontainer}>
+        {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
       <View style={styles.titlecontainer}>
         <Text style={styles.titlestyle}>Course name</Text>
         <Text style={styles.titlestyle}>Score achieved</Text>
         <Text style={styles.titlestyle}>Status</Text>
       </View>
+ 
+
       <Grades />
       <View style={styles.gradesfooter}>
         <Text
@@ -39,8 +37,9 @@ export default Gradecontainer;
 
 const styles = StyleSheet.create({
   gradescontainer: {
-    height:height/2,
-    width:width-45,
+    elevation: 10,
+    height: height / 2,
+    width: width - 45,
     borderRadius: 20,
     display: 'flex',
     // alignContent: 'center',

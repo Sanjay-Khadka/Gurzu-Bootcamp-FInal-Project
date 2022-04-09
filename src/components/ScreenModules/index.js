@@ -1,5 +1,6 @@
-import Grades from "./Grades";
-import Gradecontainer from "./gradescontainer";
-import Todo from "./Todo";
-import CourseFlatlist from './CourseFlatList'
-export {Grades, Gradecontainer, Todo, CourseFlatlist}; 
+import Grades from './Grades';
+import Todo from './Todo';
+import CourseFlatlist from './CourseFlatList';
+import Assignments from './Assignments';
+import Recents from './Recents';
+export {Grades, Todo, CourseFlatlist, Assignments, Recents};

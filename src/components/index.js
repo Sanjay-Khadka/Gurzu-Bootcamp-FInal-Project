@@ -1,9 +1,15 @@
 import {CustomButton, CustomBotton, ToggleButton} from './ButtonComponent';
 import {HomeScreenHeader, NavigationHeader} from './HeaderComponent';
-import {Grades, Gradecontainer, Todo} from './ScreenModules';
-import {FormInput, CustomInput, PasswordInput} from './InputComponent';
-
+import {Grades, Todo, Assignments, Recents} from './ScreenModules';
+import {FormInput, PasswordInput} from './InputComponent';
+import {
+  RecentContainer,
+  TodoContainer,
+  AssignmentContainer,
+  Gradecontainer,
+} from './DisplayContainer';
+export {RecentContainer, TodoContainer, AssignmentContainer, Gradecontainer};
 export {CustomButton, CustomBotton, ToggleButton, PasswordInput};
 export {HomeScreenHeader, NavigationHeader};
-export {Grades, Gradecontainer, Todo};
-export {FormInput, CustomInput};
+export {Grades, Todo, Assignments, Recents};
+export {FormInput};

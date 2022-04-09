@@ -11,7 +11,7 @@ const AuthReducer = (state = initialState, action) => {
       };
     case logout:
       return {
-        logout: action.payload,
+        authToken: action.payload,
       };
     case register:
       return {

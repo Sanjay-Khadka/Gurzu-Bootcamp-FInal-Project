@@ -1,38 +1,48 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {ToggleButton} from '../../components';
-import Assignments from '../../components/ScreenModules/Assignments';
-import {HomeScreenHeader, Gradecontainer, Todo} from '../../components';
+import {
+  HomeScreenHeader,
+  Gradecontainer,
+  AssignmentContainer,
+  RecentContainer,
+  TodoContainer,
+} from '../../components';
+import {useDispatch} from 'react-redux';
+import {
+  courseDetail,
+  gradesDetail,
+  tasksDetail,
+  assignmentDetail,
+} from '../../redux/actions';
 import LottieView from 'lottie-react-native';
 const HomeScreen = () => {
   const [grade, setGrade] = useState(false);
   const [todo, setTodo] = useState(false);
   const [assignment, setAssignment] = useState(false);
   const [recents, setRecent] = useState(false);
-  const [color, setColor] = useState(false);
-
-  let backgroundColor = null;
-  const handleColor = () => {
-    setColor(!color);
-  };
-
+  // const [color, setColor] = useState(false);
+  const dispatch = useDispatch();
   const handleTodoPress = () => {
     setTodo(!todo);
     setGrade(false);
     setAssignment(false);
     setRecent(false);
+    dispatch(tasksDetail());
   };
   const handleGradePress = () => {
     setGrade(!grade);
     setTodo(false);
     setAssignment(false);
     setRecent(false);
+    dispatch(gradesDetail());
   };
   const assignPress = () => {
     setAssignment(!assignment);
     setGrade(false);
     setTodo(false);
     setRecent(false);
+    dispatch(assignmentDetail());
   };
   const recentPress = () => {
     setRecent(!recents);
@@ -46,14 +56,14 @@ const HomeScreen = () => {
       return <Gradecontainer />;
     }
     if (todo) {
-      return <Todo />;
+      return <TodoContainer />;
     }
 
     if (assignment) {
-      return <Assignments />;
+      return <AssignmentContainer />;
     }
     if (recents) {
-      return <Text>recent</Text>;
+      return <RecentContainer />;
     }
   };
 
@@ -96,11 +106,8 @@ const HomeScreen = () => {
           onPress={() => assignPress()}
         />
       </View>
-     
-      <View style={styles.content}>
-       {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
-      {handleGestuer()}
-      </View>
+
+      <View style={styles.content}>{handleGestuer()}</View>
     </View>
   );
 };
@@ -109,9 +116,10 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
-    backgroundColor: '#E5E5E5',
+    backgroundColor: 'white',
   },
   buttoncontainer: {
+    backgroundColor: 'white',
     position: 'relative',
     top: '5%',
     flex: 1,
@@ -123,17 +131,20 @@ const styles = StyleSheet.create({
   },
 
   togglebutton: {
+    elevation: 10,
     marginStart: 10,
     marginEnd: 10,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'white',
   },
   togglebutton1: {
+    elevation: 10,
     marginStart: 10,
     marginEnd: 10,
     backgroundColor: '#004277',
   },
-  content:{
-    flex:2,
-    justifyContent:'center',
-  alignItems:'center'  }
+  content: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
