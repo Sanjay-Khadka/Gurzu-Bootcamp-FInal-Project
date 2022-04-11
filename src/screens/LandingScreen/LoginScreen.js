@@ -9,11 +9,12 @@ import {
   Dimensions,
   Alert,
 } from 'react-native';
-import {loginUser} from '../../redux/actions';
+import {loginUser, userToken} from '../../redux/actions';
+import axios from 'axios';
 import {useDispatch} from 'react-redux';
 
 import {CheckBox, Icon} from '@rneui/themed';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
 
 import {FormInput, PasswordInput} from '../../components/';
 import {CustomButton} from '../../components/';
@@ -33,23 +34,20 @@ const LoginScreen = () => {
     navigation.navigate('RegisterScreen');
   };
 
-  const LoginToHome = async () => {
-    navigation.navigate('bottom');
-    // if (loginEmail === '' || loginPassword === '') {
-    //   alert('empty');
-    //   return;
-    // } else {
-    //   var data = JSON.stringify({
-    //     user: {
-    //       email: loginEmail,
-    //       password: loginPassword,
-    //     },
-    //   });
-    // }
+  const LoginToHome = () => {
+    // navigation.navigate('bottom');
+    // return;
+    var logindata = JSON.stringify({
+      user: {
+        email: loginEmail,
+        password: loginPassword,
+      },
+    });
 
-    // dispatch(loginUser(data));
-    
+    dispatch(loginUser(logindata));
+    dispatch(userToken(logindata));
   };
+
   const LoginToForgotPassword = () => {
     navigation.navigate('ForgotPassword');
   };

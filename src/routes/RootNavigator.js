@@ -9,10 +9,10 @@ const RootNavigator = () => {
   const Root = createNativeStackNavigator();
   return (
     <NavigationContainer>
-     <Root.Navigator screenOptions={{headerShown:false}}>
-       {/* {token ? StackNav():BottomNav(bottomnavigation)}/> */}
-     <Root.Screen name = 'stack' component={StackNav}/> 
-       <Root.Screen name = 'bottom' component={BottomNav}/>
+      <Root.Navigator screenOptions={{headerShown: false}}>
+        {/* {token ? StackNav():BottomNav(bottomnavigation)}/> */}
+        <Root.Screen name="stack" component={StackNav} />
+        <Root.Screen name="bottom" component={BottomNav} />
       </Root.Navigator>
     </NavigationContainer>
   );

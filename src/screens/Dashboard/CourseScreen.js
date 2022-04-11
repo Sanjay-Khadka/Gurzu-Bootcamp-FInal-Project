@@ -3,70 +3,33 @@ import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {ToggleButton} from '../../components';
 import {
   HomeScreenHeader,
-  Gradecontainer,
-  AssignmentContainer,
-  RecentContainer,
-  TodoContainer,
+  AllCourseContainer,
+  MyCourseContainer,
 } from '../../components';
 import {useDispatch} from 'react-redux';
-import {useSelector} from 'react-redux';
-import {
-  courseDetail,
-  gradesDetail,
-  tasksDetail,
-  assignmentDetail,
-} from '../../redux/actions';
+import {} from '../../redux/actions';
 import LottieView from 'lottie-react-native';
 const HomeScreen = () => {
-  const [grade, setGrade] = useState(false);
   const [todo, setTodo] = useState(false);
-  const [assignment, setAssignment] = useState(true);
-  const [recents, setRecent] = useState(false);
+  const [recents, setRecent] = useState(true);
   // const [color, setColor] = useState(false);
-  const userdata = [useSelector(state => state.authReducer.Login)];
-  console.log(userdata);
   const dispatch = useDispatch();
   const handleTodoPress = () => {
     setTodo(!todo);
-    setGrade(false);
-    setAssignment(false);
     setRecent(false);
-    dispatch(tasksDetail());
-  };
-  const handleGradePress = () => {
-    setGrade(!grade);
-    setTodo(false);
-    setAssignment(false);
-    setRecent(false);
-    // dispatch(gradesDetail());
-  };
-  const assignPress = () => {
-    setAssignment(!assignment);
-    setGrade(false);
-    setTodo(false);
-    setRecent(false);
-    dispatch(assignmentDetail());
+    // dispatch(tasksDetail());
   };
   const recentPress = () => {
     setRecent(!recents);
-    setGrade(false);
-    setAssignment(false);
     setTodo(false);
   };
 
   const handleGestuer = () => {
-    if (grade) {
-      return <Gradecontainer />;
-    }
-    // if (todo) {
-    //   return <TodoContainer />;
-    // }
-
-    if (assignment) {
-      return <AssignmentContainer />;
+    if (todo) {
+      return <MyCourseContainer />;
     }
     if (recents) {
-      return <RecentContainer />;
+      return <AllCourseContainer />;
     }
   };
 
@@ -77,36 +40,20 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.buttoncontainer}>
-        {/* <ToggleButton
-          labelText="To-do"
-          iconname="checklist"
+        <ToggleButton
+          labelText="My courses"
+          iconname="pencil"
           textColor={!todo}
           style={!todo ? styles.togglebutton : styles.togglebutton1}
           onPress={() => handleTodoPress()}
-        /> */}
+        />
 
         <ToggleButton
           textColor={!recents}
-          iconname="history"
-          labelText="Recent lessons"
+          iconname="note"
+          labelText="All courses"
           style={!recents ? styles.togglebutton : styles.togglebutton1}
           onPress={() => recentPress()}
-        />
-
-        <ToggleButton
-          textColor={!grade}
-          labelText="My Grades"
-          iconname="issue-closed"
-          style={!grade ? styles.togglebutton : styles.togglebutton1}
-          onPress={() => handleGradePress()}
-        />
-
-        <ToggleButton
-          textColor={!assignment}
-          iconname="project"
-          labelText="My Assignment"
-          style={!assignment ? styles.togglebutton : styles.togglebutton1}
-          onPress={() => assignPress()}
         />
       </View>
 
@@ -146,7 +93,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#004277',
   },
   content: {
-    flex: 2,
+    flex: 4,
     justifyContent: 'center',
     alignItems: 'center',
   },

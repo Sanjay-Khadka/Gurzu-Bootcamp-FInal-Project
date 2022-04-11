@@ -6,41 +6,62 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
-  Image,
+  Switch,
 } from 'react-native';
+import SwitchButton from './SwitchButton';
 
 const {height, width} = Dimensions.get('window');
-const Recents = () => {
+const AllCourseFlatlist = () => {
   const taskdetail = [
     {
-      id: '2',
+      id: '2874',
       name: 'Frontend Development',
-      image: require('../../assets/Angular.png'),
-      assignment: 'Angular',
+      date: '3rd March',
+      time: '2:00 pm',
+      chapter: '-15 chapters',
     },
     {
-      id: '22',
+      id: '2874',
       name: 'Frontend Development',
-      image: require('../../assets/Python.png'),
-      assignment: 'Python',
+      date: '3rd March',
+      time: '2:00 pm',
+      chapter: '-15 chapters',
     },
     {
-      id: '1234',
+      id: '2874',
       name: 'Frontend Development',
-      image: require('../../assets/Blender.png'),
-      assignment: 'Blender',
+      date: '3rd March',
+      time: '2:00 pm',
+      chapter: '-15 chapters',
+    },
+    {
+      id: '2874',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      chapter: '-15 chapters',
+    },
+    {
+      id: '2874',
+      name: 'Frontend Development',
+      date: '3rd March',
+      time: '2:00 pm',
+      chapter: '-15 chapters',
     },
   ];
 
   const renderItem = ({item}) => {
     return (
       // <View style={styles.maincontainer}>
-      <TouchableOpacity>
+      <TouchableOpacity style={styles.button}>
         <View style={styles.container}>
-          <Image style={styles.logo} source={item.image} />
-          <View style={styles.coursedetail}>
-            <Text style={styles.assignment}>{item.assignment}</Text>
+          <View style={styles.coursetitle}>
+            <Text style={styles.textcourse}>{item.name}</Text>
+            <View style={styles.coursedetail}>
+              <Text style={styles.assignment}>{item.chapter}</Text>
+            </View>
           </View>
+          <SwitchButton />
         </View>
       </TouchableOpacity>
     );
@@ -51,28 +72,26 @@ const Recents = () => {
       data={taskdetail}
       keyExtractor={item => item.id}
       renderItem={renderItem}
-      numColumns={2}
     />
   );
 };
 
-export default Recents;
+export default AllCourseFlatlist;
 
 const styles = StyleSheet.create({
+  button: {
+    justifyContent: 'center',
+    width: width - 10,
+  },
   container: {
-    elevation: 8,
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flex: 1,
-    flexDirection: 'column',
-    // height: height / 3.5,
-    marginVertical: 15,
-    marginHorizontal: 10,
-    paddingVertical: 10,
+    elevation: 10,
+    flexDirection: 'row',
+    height: height / 9,
+    margin: 6,
     borderRadius: 15,
+    justifyContent: 'space-around',
 
-    width: width / 2.2,
+    width: width - 10,
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
@@ -85,10 +104,10 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   textcourse: {
-    fontSize: 16,
-    color: '#004277',
-    fontWeight: '500',
-    fontFamily: 'WorkSans',
+    fontSize: 14,
+    color: '#000000',
+    fontWeight: 'bold',
+    fontFamily: 'WorkSans-Regular',
     paddingHorizontal: 15,
   },
   textdate: {
@@ -98,17 +117,17 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
   },
   coursedetail: {
-    // width: 230,
-    height: '100%',
+    width: 230,
     alignItems: 'stretch',
-    // marginHorizontal: 10,
-    // justifyContent: 'space-around',
+    marginHorizontal: 10,
+    justifyContent: 'space-around',
   },
   assignment: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#616161',
     fontWeight: '400',
     fontFamily: 'WorkSans-Regular',
+    marginHorizontal: 5,
   },
   goto: {
     fontSize: 12,
@@ -116,10 +135,5 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontFamily: 'WorkSans-Regular',
     textAlign: 'right',
-  },
-  logo: {
-    borderRadius: 10,
-    height: height / 5,
-    width: width / 2.5,
   },
 });

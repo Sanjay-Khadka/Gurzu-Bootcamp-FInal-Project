@@ -16,7 +16,7 @@ const PasswordInput = ({
   onChangeText = null,
   value = null,
   handleOnPress = null,
-  secureTextEntry ,
+  secureTextEntry,
   ...more
 }) => {
   const [visible, setVisible] = useState(true);
@@ -59,11 +59,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#2971AB',
     width: width - 70,
+    // height: height - 20,
   },
   viewcontainer: {
     padding: 8,
     width: width - 20,
-    height: 50,
+    height: 55,
     backgroundColor: '#EBF9FF',
     borderRadius: 5,
     justifyContent: 'space-between',

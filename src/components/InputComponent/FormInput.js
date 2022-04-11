@@ -13,9 +13,8 @@ const {width, height} = Dimensions.get('window');
 const FormInput = ({
   labelText = '',
   placeholderText = '',
-  onChangeText = null,
-  value = null,
-
+  onChangeText,
+  value,
   secureTextEntry = null,
   ...more
 }) => {
@@ -53,7 +52,7 @@ const styles = StyleSheet.create({
   viewcontainer: {
     padding: 8,
     width: width - 20,
-    height: 50,
+    height: 55,
     backgroundColor: '#EBF9FF',
     borderRadius: 5,
     justifyContent: 'space-between',

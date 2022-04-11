@@ -8,10 +8,10 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-
 const {height, width} = Dimensions.get('window');
-const Recents = () => {
-  const taskdetail = [
+
+const MyCourseFlatList = () => {
+  const course = [
     {
       id: '2',
       name: 'Frontend Development',
@@ -48,7 +48,7 @@ const Recents = () => {
 
   return (
     <FlatList
-      data={taskdetail}
+      data={course}
       keyExtractor={item => item.id}
       renderItem={renderItem}
       numColumns={2}
@@ -56,7 +56,7 @@ const Recents = () => {
   );
 };
 
-export default Recents;
+export default MyCourseFlatList;
 
 const styles = StyleSheet.create({
   container: {

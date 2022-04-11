@@ -8,7 +8,7 @@ const {width} = Dimensions.get('window');
 const TodoContainer = () => {
   return (
     <View style={styles.todocontainer}>
-            {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
+      {/* <LottieView source={require('../../assets/loading.json')} autoPlay loop /> */}
 
       <Todo />
     </View>

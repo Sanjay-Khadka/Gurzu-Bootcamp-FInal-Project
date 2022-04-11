@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import SwitchButton from '../../components/ScreenModules/SwitchButton';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationHeader} from '../../components';
 import {CustomButton} from '../../components';
@@ -14,12 +15,14 @@ import Icon from 'react-native-vector-icons/dist/Feather';
 import {StackNav} from '../../routes';
 import {Switch} from '@rneui/base';
 const {height, width} = Dimensions.get('window');
-
+import {useDispatch} from 'react-redux';
+import {logoutUser} from '../../redux/actions';
 const SettingsScreen = () => {
-
-  const maintoAuth = () =>{
-    bottomnavigation.navigate('stack')
-  }
+  const dispatch = useDispatch();
+  const maintoAuth = () => {
+    dispatch(logoutUser());
+    // bottomnavigation.navigate('stack')
+  };
 
   const bottomnavigation = useNavigation();
   return (
@@ -51,7 +54,8 @@ const SettingsScreen = () => {
         <View>
           <TouchableOpacity style={styles.notificationcontainer}>
             <Text style={styles.settingsColor}>Notifications</Text>
-            <Switch onValueChange={console.warn('toggled')} />
+            {/* <Switch onValueChange={console.warn('toggled')} /> */}
+            <SwitchButton />
           </TouchableOpacity>
         </View>
 

@@ -10,11 +10,12 @@ import {
   ScrollView,
   Alert,
 } from 'react-native';
+import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import {CustomButton, FormInput, PasswordInput} from '../../components';
-import { useDispatch } from 'react-redux';
-import { registerUser } from '../../redux/actions';
-const {width, height} = Dimensions.get('window');
+import {useDispatch, useSelector} from 'react-redux';
+import {registerUser} from '../../redux/actions';
+const {height} = Dimensions.get('window');
 
 const RegisterScreen = () => {
   const [firstname, setFname] = useState('');
@@ -22,27 +23,25 @@ const RegisterScreen = () => {
   const [registerEmail, setRegEmail] = useState('');
   const [registerPassword, setregPassword] = useState('');
   const [confirmPassword, setConfirmPass] = useState('');
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
   const RegisterToLogin = () => {
     navigation.popToTop('RegisterScreen');
   };
 
   const handleRegister = () => {
-    var registerdata = JSON.stringify({
-      user: {
-        first_name: firstname,
-        last_name: lastname,
-        email: registerEmail,
-        role: 1,
-        password: registerPassword,
-        password_confirmation: confirmPassword,
-      },
-    });
-    dispatch(registerUser(registerdata));
+    dispatch(
+      registerUser(
+        firstname,
+        lastname,
+        registerEmail,
+        registerPassword,
+        confirmPassword,
+      ),
+    );
   };
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior="height">
       <ScrollView>

@@ -1,6 +1,11 @@
-import {login, logout, register} from './actions';
+import {login, logout, register, resetPassword, getToken} from './actions';
 
-const initialState = {authToken: null, Login: [], Register: []};
+const initialState = {
+  Login: [],
+  authToken: null,
+  Register: [],
+  ResetPassword: {},
+};
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -9,15 +14,25 @@ const AuthReducer = (state = initialState, action) => {
         ...state,
         Login: action.payload,
       };
+    case getToken: {
+      return {
+        ...state,
+        authToken: action.payload,
+      };
+    }
     case logout:
       return {
-        authToken: action.payload,
+        Login: null,
       };
     case register:
       return {
         Register: action.payload,
       };
-
+    case resetPassword: {
+      return {
+        ResetPassword: action.payload,
+      };
+    }
     default:
       return state;
   }

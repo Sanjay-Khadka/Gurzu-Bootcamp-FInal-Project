@@ -1,6 +1,12 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {HomeScreen, CalendarScreen, SettingsScreen} from '../screens';
+// import { NavigationContainer } from '@react-navigation/native';
+import {
+  HomeScreen,
+  CalendarScreen,
+  SettingsScreen,
+  CourseScreen,
+} from '../screens';
 // import Icon from 'react-native-vector-icons/dist/Entypo';
 import Icon from 'react-native-vector-icons/dist/Feather';
 
@@ -28,6 +34,15 @@ const BottomNav = () => {
         options={{
           tabBarIcon: ({color, size}) => (
             <Icon color={color} name="home" size={size} />
+          ),
+        }}
+      />
+      <Bottom.Screen
+        name="Courses"
+        component={CourseScreen}
+        options={{
+          tabBarIcon: ({color, size}) => (
+            <Icon color={color} name="book-open" size={size} />
           ),
         }}
       />

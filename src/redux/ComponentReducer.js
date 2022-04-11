@@ -1,14 +1,15 @@
-import {getTask, getGrade, getAssignment, getCourse} from './actions';
+import {getGrade, getMyCourse, getAssignment, getAllCourse} from './actions';
 
-const initialState = {Assignment: [], Course: [], Task: [], Grade: []};
+const initialState = {
+  Assignment: [],
+  MyCourse: [],
+  AllCourse: [],
+  Task: [],
+  Grade: [],
+};
 
 const ComponentReducer = (state = initialState, action) => {
   switch (action.type) {
-    case getTask:
-      return {
-        ...state,
-        Task: action.payload,
-      };
     case getGrade:
       return {
         ...state,
@@ -20,10 +21,15 @@ const ComponentReducer = (state = initialState, action) => {
         Assignment: action.payload,
       };
 
-    case getCourse:
+    case getMyCourse:
       return {
         ...state,
-        Course: action.payload,
+        MyCourse: action.payload,
+      };
+    case getAllCourse:
+      return {
+        ...state,
+        AllCourse: action.payload,
       };
 
     default:

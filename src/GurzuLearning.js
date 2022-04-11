@@ -1,8 +1,15 @@
 import React from 'react';
-import RootNavigator from './routes/RootNavigator';
-
+import {StackNav, BottomNav} from './routes';
+import {useSelector} from 'react-redux';
+import {NavigationContainer} from '@react-navigation/native';
 const GurzuLearning = () => {
-  return <RootNavigator />;
+  const token = useSelector(state => state.authReducer.authToken);
+  console.warn(token);
+  return (
+    <NavigationContainer>
+      {token ? <BottomNav /> : <StackNav />}
+    </NavigationContainer>
+  );
 };
 
 export default GurzuLearning;
