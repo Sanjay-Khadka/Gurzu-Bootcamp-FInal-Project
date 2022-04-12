@@ -14,7 +14,7 @@ import {FormInput} from '../../components';
 
 const {height, width} = Dimensions.get('screen');
 import {useNavigation} from '@react-navigation/native';
-import {forgotPassword} from '../../redux/actions';
+import {forgotPassword} from '../../redux/actions/assignmentGrades';
 const ForgotPasswordScreen = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');

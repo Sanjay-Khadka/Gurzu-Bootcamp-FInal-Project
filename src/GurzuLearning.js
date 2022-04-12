@@ -4,10 +4,12 @@ import {useSelector} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 const GurzuLearning = () => {
   const token = useSelector(state => state.authReducer.authToken);
-  console.warn(token);
+  // console.warn(token);
   return (
     <NavigationContainer>
-      {token ? <BottomNav /> : <StackNav />}
+      {/* {token ? */}
+      <BottomNav />
+      {/* // : <StackNav />} */}
     </NavigationContainer>
   );
 };

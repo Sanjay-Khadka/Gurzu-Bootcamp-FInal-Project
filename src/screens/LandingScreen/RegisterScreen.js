@@ -14,7 +14,7 @@ import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import {CustomButton, FormInput, PasswordInput} from '../../components';
 import {useDispatch, useSelector} from 'react-redux';
-import {registerUser} from '../../redux/actions';
+import {registerUser} from '../../redux/actions/AuthActions';
 const {height} = Dimensions.get('window');
 
 const RegisterScreen = () => {

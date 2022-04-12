@@ -6,10 +6,12 @@ import {
   AllCourseContainer,
   MyCourseContainer,
 } from '../../components';
-import {useDispatch} from 'react-redux';
-import {} from '../../redux/actions';
-import LottieView from 'lottie-react-native';
+import {AllCourse} from '../../redux/actions/CourseActions';
+import {useDispatch, useSelector} from 'react-redux';
+
 const HomeScreen = () => {
+  const courseToken = useSelector(state => state.authReducer.authToken);
+
   const [todo, setTodo] = useState(false);
   const [recents, setRecent] = useState(true);
   // const [color, setColor] = useState(false);
@@ -22,6 +24,7 @@ const HomeScreen = () => {
   const recentPress = () => {
     setRecent(!recents);
     setTodo(false);
+    dispatch(AllCourse(courseToken));
   };
 
   const handleGestuer = () => {

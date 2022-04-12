@@ -5,10 +5,10 @@ import {
   resetPassword,
   getToken,
   getRepo,
-} from './actions';
+} from '../actions/AuthActions';
 
 const initialState = {
-  Login: [],
+  Login: {},
   authToken: null,
   Register: [],
   ResetPassword: {},

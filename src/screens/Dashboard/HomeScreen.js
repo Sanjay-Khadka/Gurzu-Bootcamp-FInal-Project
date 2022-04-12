@@ -15,7 +15,7 @@ import {
   gradesDetail,
   tasksDetail,
   assignmentDetail,
-} from '../../redux/actions';
+} from '../../redux/actions/assignmentGrades';
 import LottieView from 'lottie-react-native';
 const HomeScreen = () => {
   const [grade, setGrade] = useState(false);

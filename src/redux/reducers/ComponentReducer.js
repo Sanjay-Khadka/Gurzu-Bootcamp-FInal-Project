@@ -1,5 +1,5 @@
-import {getGrade, getMyCourse, getAssignment, getAllCourse} from './actions';
-
+import {getMyCourse, getAllCourse} from '../actions/CourseActions';
+import {getGrade, getAssignment} from '../actions/assignmentGrades';
 const initialState = {
   Assignment: [],
   MyCourse: [],

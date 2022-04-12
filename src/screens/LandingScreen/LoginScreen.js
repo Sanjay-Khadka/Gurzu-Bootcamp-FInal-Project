@@ -9,12 +9,11 @@ import {
   Dimensions,
   Alert,
 } from 'react-native';
-import {loginUser, userToken} from '../../redux/actions';
-import axios from 'axios';
-import {useDispatch} from 'react-redux';
+import {loginUser, userToken} from '../../redux/actions/AuthActions';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {CheckBox, Icon} from '@rneui/themed';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 import {FormInput, PasswordInput} from '../../components/';
 import {CustomButton} from '../../components/';
@@ -28,24 +27,30 @@ const LoginScreen = () => {
   const [isvisible, setVisibility] = useState(false);
 
   const dispatch = useDispatch();
+
   const navigation = useNavigation();
+
+  // const data = useSelector(state => state.authReducer.Login);
 
   const LoginToRegister = () => {
     navigation.navigate('RegisterScreen');
   };
 
   const LoginToHome = () => {
-    // navigation.navigate('bottom');
-    // return;
-    var logindata = JSON.stringify({
-      user: {
-        email: loginEmail,
-        password: loginPassword,
-      },
-    });
+    if (loginEmail === '' || loginPassword === '') {
+      alert('please input the required fields');
+      return;
+    } else {
+      var logindata = JSON.stringify({
+        user: {
+          email: loginEmail,
+          password: loginPassword,
+        },
+      });
 
-    dispatch(loginUser(logindata));
-    dispatch(userToken(logindata));
+      dispatch(loginUser(logindata));
+      // dispatch(userToken(logindata));
+    }
   };
 
   const LoginToForgotPassword = () => {
@@ -124,6 +129,7 @@ const LoginScreen = () => {
             <Text style={styles.questionbutton}>join today</Text>
           </TouchableOpacity>
         </View>
+        {/* {LoginToHome()} */}
         {/* footer info end */}
       </View>
     </KeyboardAvoidingView>

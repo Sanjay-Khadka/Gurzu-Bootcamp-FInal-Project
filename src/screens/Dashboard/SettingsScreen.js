@@ -16,7 +16,7 @@ import {StackNav} from '../../routes';
 import {Switch} from '@rneui/base';
 const {height, width} = Dimensions.get('window');
 import {useDispatch} from 'react-redux';
-import {logoutUser} from '../../redux/actions';
+import {logoutUser} from '../../redux/actions/assignmentGrades';
 const SettingsScreen = () => {
   const dispatch = useDispatch();
   const maintoAuth = () => {

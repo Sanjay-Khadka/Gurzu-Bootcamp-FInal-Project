@@ -4,14 +4,13 @@ import {useSelector} from 'react-redux';
 const {height, weight} = Dimensions.get('window');
 
 const HomeScreenHeader = () => {
-  const [user, setData] = useState([]);
   const userdata = useSelector(state => state.authReducer.Login);
-  console.warn(userdata);
+  // console.warn(userdata);
   return (
     <View style={styles.header}>
       <View>
         <Text style={styles.greetingtext}>Hi</Text>
-        <Text style={styles.userinfo}>{userdata.data.first_name}</Text>
+        {/* <Text style={styles.userinfo}>{userdata.data.first_name}</Text> */}
       </View>
 
       {/* <Image style={styles.img} source={require('../../assets/profile.png')} /> */}

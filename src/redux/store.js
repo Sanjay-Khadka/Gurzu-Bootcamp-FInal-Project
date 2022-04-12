@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 // import {persistStore, persistReducer} from 'redux-persist';
 import {createStore, applyMiddleware} from 'redux';
 
-import AllReducers from './CombinedReducer';
+import AllReducers from './reducers/CombinedReducer';
 const middleware = [thunk];
 
 const persistConfig = {
