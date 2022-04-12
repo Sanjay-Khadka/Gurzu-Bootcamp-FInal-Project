@@ -11,7 +11,6 @@ const App = () => {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <GurzuLearning />
-        {/* <TestFlatlist /> */}
       </PersistGate>
     </Provider>
   );
