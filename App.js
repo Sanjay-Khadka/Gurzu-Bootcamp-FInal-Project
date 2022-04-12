@@ -9,7 +9,9 @@ import GurzuLearning from './src/GurzuLearning';
 const App = () => {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}></PersistGate>
+      <PersistGate persistor={persistor}>
+        <GurzuLearning />
+      </PersistGate>
     </Provider>
   );
 };
