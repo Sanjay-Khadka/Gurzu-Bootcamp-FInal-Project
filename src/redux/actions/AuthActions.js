@@ -5,6 +5,7 @@ export const login = 'login';
 export const register = 'register';
 export const logout = 'logout';
 export const resetPassword = 'resetPassword';
+export const getToken = 'getToken';
 export const loginUser = logindata => {
   return async dispatch => {
     // console.warn({logindata});
@@ -20,9 +21,9 @@ export const loginUser = logindata => {
     try {
       const response = await axios(config);
       // console.warn(response.data.token);
-
-      dispatch({type: login, payload: response});
-      console.warn(response);
+      const loginCredentials = response.data;
+      dispatch({type: login, payload: loginCredentials});
+      // console.warn(loginCredentials);
     } catch (error) {
       console.warn(error);
     }
@@ -46,7 +47,7 @@ export const userToken = logindata => {
       // console.warn(response.data.token);
       const token = response.data.token;
       dispatch({type: getToken, payload: token});
-      // console.warn(token);
+      console.warn(token);
     } catch (error) {
       console.warn(error);
     }

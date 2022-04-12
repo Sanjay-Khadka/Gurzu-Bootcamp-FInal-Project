@@ -4,7 +4,7 @@ export const getMyCourse = 'getCourse';
 export const getAllCourse = 'getAllCourse';
 export const getChapter = 'getChapter';
 
-export const MyCourse = () => {
+export const MyCourse = courseToken => {
   return async dispatch => {
     var config = {
       method: 'get',
@@ -35,8 +35,9 @@ export const AllCourse = courseToken => {
     };
 
     axios(config)
-      .then(function (response) {
-        // console.log(JSON.stringify(response));
+      .then(function (allCoursedata) {
+        // console.warn(JSON.stringify(allCoursedata));
+        dispatch({type: getAllCourse, payload: allCoursedata});
       })
       .catch(function (error) {
         console.log(error);

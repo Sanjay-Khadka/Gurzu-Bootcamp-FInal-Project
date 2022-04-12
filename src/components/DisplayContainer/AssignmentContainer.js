@@ -18,11 +18,11 @@ export default AssignmentContainer;
 
 const styles = StyleSheet.create({
   assignmentcontainer: {
-    backgroundColor: 'white',
+    // backgroundColor: 'black',
     width: width,
     alignItems: 'center',
     // backgroundColor: 'black',
-    display: 'flex',
-    flex: 1,
+    // display: 'flex',
+    // flex: 7,
   },
 });

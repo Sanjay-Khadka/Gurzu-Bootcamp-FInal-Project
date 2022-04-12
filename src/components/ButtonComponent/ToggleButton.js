@@ -19,6 +19,7 @@ const ToggleButton = (
     <TouchableOpacity
       // eslint-disable-next-line react-native/no-inline-styles
       style={{
+        elevation: 5,
         marginVertical: 5,
         position: 'relative',
         top: 22,

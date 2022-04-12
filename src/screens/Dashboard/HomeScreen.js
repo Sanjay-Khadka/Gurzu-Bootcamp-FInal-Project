@@ -16,7 +16,6 @@ import {
   tasksDetail,
   assignmentDetail,
 } from '../../redux/actions/assignmentGrades';
-import LottieView from 'lottie-react-native';
 const HomeScreen = () => {
   const [grade, setGrade] = useState(false);
   const [todo, setTodo] = useState(false);
@@ -24,7 +23,7 @@ const HomeScreen = () => {
   const [recents, setRecent] = useState(false);
   // const [color, setColor] = useState(false);
   const userdata = [useSelector(state => state.authReducer.Login)];
-  console.log(userdata);
+  // console.log(userdata);
   const dispatch = useDispatch();
   const handleTodoPress = () => {
     setTodo(!todo);
@@ -134,19 +133,19 @@ const styles = StyleSheet.create({
   },
 
   togglebutton: {
-    elevation: 10,
     marginStart: 10,
     marginEnd: 10,
     backgroundColor: 'white',
   },
   togglebutton1: {
-    elevation: 10,
     marginStart: 10,
     marginEnd: 10,
     backgroundColor: '#004277',
   },
   content: {
-    flex: 2,
+    // backgroundColor: 'black',
+    flex: 2.5,
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },

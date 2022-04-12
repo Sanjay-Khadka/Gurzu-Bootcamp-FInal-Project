@@ -35,7 +35,7 @@ const Recents = () => {
   const renderItem = ({item}) => {
     return (
       // <View style={styles.maincontainer}>
-      <TouchableOpacity>
+      <TouchableOpacity style={styles.maincontainer}>
         <View style={styles.container}>
           <Image style={styles.logo} source={item.image} />
           <View style={styles.coursedetail}>
@@ -59,6 +59,10 @@ const Recents = () => {
 export default Recents;
 
 const styles = StyleSheet.create({
+  maincontainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     elevation: 8,
     display: 'flex',
@@ -66,13 +70,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
-    // height: height / 3.5,
     marginVertical: 15,
     marginHorizontal: 10,
     paddingVertical: 10,
     borderRadius: 15,
 
-    width: width / 2.2,
+    width: width / 2.3,
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',

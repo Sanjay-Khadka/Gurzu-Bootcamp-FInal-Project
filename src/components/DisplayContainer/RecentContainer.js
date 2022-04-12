@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   recentcontainer: {
     backgroundColor: 'white',
     width: width,
+    justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: 'black',
     display: 'flex',

@@ -9,40 +9,22 @@ import {
   Switch,
 } from 'react-native';
 import SwitchButton from './SwitchButton';
+import {useSelector} from 'react-redux';
 
 const {height, width} = Dimensions.get('window');
 const AllCourseFlatlist = () => {
+  const coursedata = useSelector(state => state.mainscreen.AllCourse.data);
+  console.warn(coursedata);
   const taskdetail = [
     {
-      id: '2874',
+      id: '287344',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
       chapter: '-15 chapters',
     },
     {
-      id: '2874',
-      name: 'Frontend Development',
-      date: '3rd March',
-      time: '2:00 pm',
-      chapter: '-15 chapters',
-    },
-    {
-      id: '2874',
-      name: 'Frontend Development',
-      date: '3rd March',
-      time: '2:00 pm',
-      chapter: '-15 chapters',
-    },
-    {
-      id: '2874',
-      name: 'Frontend Development',
-      date: '3rd March',
-      time: '2:00 pm',
-      chapter: '-15 chapters',
-    },
-    {
-      id: '2874',
+      id: '28343474',
       name: 'Frontend Development',
       date: '3rd March',
       time: '2:00 pm',
@@ -51,16 +33,16 @@ const AllCourseFlatlist = () => {
   ];
 
   const renderItem = ({item}) => {
+    // console.warn(item.id);
     return (
-      // <View style={styles.maincontainer}>
       <TouchableOpacity style={styles.button}>
         <View style={styles.container}>
           <View style={styles.coursetitle}>
             <Text style={styles.textcourse}>{item.name}</Text>
-            <View style={styles.coursedetail}>
-              <Text style={styles.assignment}>{item.chapter}</Text>
-            </View>
+
+            <Text style={styles.assignment}>{item.chapter}</Text>
           </View>
+
           <SwitchButton />
         </View>
       </TouchableOpacity>
@@ -69,7 +51,7 @@ const AllCourseFlatlist = () => {
 
   return (
     <FlatList
-      data={taskdetail}
+      data={coursedata}
       keyExtractor={item => item.id}
       renderItem={renderItem}
     />
@@ -80,26 +62,30 @@ export default AllCourseFlatlist;
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: 'center',
+    borderRadius: 10,
+    marginVertical: 5,
+    elevation: 3,
+    // justifyContent: 'center',
     width: width - 10,
+    backgroundColor: 'white',
+    alignItems: 'center',
   },
   container: {
-    elevation: 10,
+    // elevation: 5,
     flexDirection: 'row',
     height: height / 9,
-    margin: 6,
+    // margin: 6,
     borderRadius: 15,
     justifyContent: 'space-around',
 
     width: width - 10,
-    justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    // backgroundColor: '#FFFFFF',
   },
   coursetitle: {
     height: height / 11,
     width: width - 90,
-    //   backgroundColor:'red',
+    // backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'stretch',
   },

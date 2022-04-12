@@ -11,20 +11,20 @@ import {useDispatch, useSelector} from 'react-redux';
 
 const HomeScreen = () => {
   const courseToken = useSelector(state => state.authReducer.authToken);
+  console.warn(courseToken);
 
   const [todo, setTodo] = useState(false);
   const [recents, setRecent] = useState(true);
-  // const [color, setColor] = useState(false);
+
   const dispatch = useDispatch();
   const handleTodoPress = () => {
     setTodo(!todo);
     setRecent(false);
-    // dispatch(tasksDetail());
   };
   const recentPress = () => {
     setRecent(!recents);
     setTodo(false);
-    dispatch(AllCourse(courseToken));
+    // dispatch(AllCourse(courseToken));
   };
 
   const handleGestuer = () => {

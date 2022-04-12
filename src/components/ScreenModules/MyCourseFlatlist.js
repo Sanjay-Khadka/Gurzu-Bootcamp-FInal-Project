@@ -34,13 +34,10 @@ const MyCourseFlatList = () => {
 
   const renderItem = ({item}) => {
     return (
-      // <View style={styles.maincontainer}>
-      <TouchableOpacity>
+      <TouchableOpacity style={styles.maincontainer}>
         <View style={styles.container}>
           <Image style={styles.logo} source={item.image} />
-          <View style={styles.coursedetail}>
-            <Text style={styles.assignment}>{item.assignment}</Text>
-          </View>
+          <Text style={styles.assignment}>{item.assignment}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -59,30 +56,23 @@ const MyCourseFlatList = () => {
 export default MyCourseFlatList;
 
 const styles = StyleSheet.create({
-  container: {
-    elevation: 8,
-    display: 'flex',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    flex: 1,
-    flexDirection: 'column',
-    // height: height / 3.5,
-    marginVertical: 15,
-    marginHorizontal: 10,
-    paddingVertical: 10,
-    borderRadius: 15,
-
+  maincontainer: {
+    elevation: 2,
     width: width / 2.2,
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    marginHorizontal: 10,
+    marginVertical: 15,
+    borderRadius: 15,
+    paddingVertical: 10,
+    justifyContent: 'flex-start',
     backgroundColor: '#FFFFFF',
   },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
   coursetitle: {
-    height: height / 11,
+    height: height / 10,
     width: width - 90,
-    //   backgroundColor:'red',
-    justifyContent: 'center',
-    alignItems: 'stretch',
   },
   textcourse: {
     fontSize: 16,
@@ -91,34 +81,15 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans',
     paddingHorizontal: 15,
   },
-  textdate: {
-    fontSize: 16,
-    color: '#004277',
-    fontWeight: '500',
-    fontFamily: 'WorkSans-Regular',
-  },
-  coursedetail: {
-    // width: 230,
-    height: '100%',
-    alignItems: 'stretch',
-    // marginHorizontal: 10,
-    // justifyContent: 'space-around',
-  },
   assignment: {
     fontSize: 14,
     color: '#616161',
     fontWeight: '400',
     fontFamily: 'WorkSans-Regular',
   },
-  goto: {
-    fontSize: 12,
-    color: '#616161',
-    fontWeight: '400',
-    fontFamily: 'WorkSans-Regular',
-    textAlign: 'right',
-  },
+
   logo: {
-    borderRadius: 10,
+    borderRadius: 15,
     height: height / 5,
     width: width / 2.5,
   },

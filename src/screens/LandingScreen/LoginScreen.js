@@ -49,7 +49,7 @@ const LoginScreen = () => {
       });
 
       dispatch(loginUser(logindata));
-      // dispatch(userToken(logindata));
+      dispatch(userToken(logindata));
     }
   };
 

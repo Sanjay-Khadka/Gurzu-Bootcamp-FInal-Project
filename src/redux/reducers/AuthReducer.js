@@ -8,25 +8,20 @@ import {
 } from '../actions/AuthActions';
 
 const initialState = {
-  Login: {},
+  Login: [],
   authToken: null,
   Register: [],
   ResetPassword: {},
   repo: {},
 };
-
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
-    case getRepo:
-      return {
-        ...state,
-        repo: action.payload,
-      };
     case login:
       return {
         ...state,
         Login: action.payload,
       };
+
     case getToken: {
       return {
         ...state,

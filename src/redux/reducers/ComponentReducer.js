@@ -3,7 +3,7 @@ import {getGrade, getAssignment} from '../actions/assignmentGrades';
 const initialState = {
   Assignment: [],
   MyCourse: [],
-  AllCourse: [],
+  AllCourse: {},
   Task: [],
   Grade: [],
 };
