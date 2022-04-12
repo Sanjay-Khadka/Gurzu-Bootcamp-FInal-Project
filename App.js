@@ -11,7 +11,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <GurzuLearning />
-        lets see the changes made to this file
+          Hello, beautiful soul.
       </PersistGate>
     </Provider>
   );
