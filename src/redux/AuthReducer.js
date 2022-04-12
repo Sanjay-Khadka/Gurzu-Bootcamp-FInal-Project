@@ -1,14 +1,27 @@
-import {login, logout, register, resetPassword, getToken} from './actions';
+import {
+  login,
+  logout,
+  register,
+  resetPassword,
+  getToken,
+  getRepo,
+} from './actions';
 
 const initialState = {
   Login: [],
   authToken: null,
   Register: [],
   ResetPassword: {},
+  repo: {},
 };
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
+    case getRepo:
+      return {
+        ...state,
+        repo: action.payload,
+      };
     case login:
       return {
         ...state,

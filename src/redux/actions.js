@@ -9,7 +9,8 @@ export const getGrade = 'getGrade';
 export const getAssignment = 'getAssignment';
 export const resetPassword = 'resetPasword';
 export const getToken = 'getToken';
-const url = 'https://f790-103-41-172-114.ngrok.io';
+export const getRepo = 'getRepo';
+const url = 'https://avocado.pagekite.me';
 
 export const loginUser = logindata => {
   return async dispatch => {
@@ -34,6 +35,21 @@ export const loginUser = logindata => {
     }
   };
 };
+
+export const showRepo = () => {
+  return async dispatch => {
+    try {
+      const repo = 'https://api.github.com/users/nepsians/repos';
+      const response = await fetch(repo);
+      const responseJson = await response.json();
+      console.log(responseJson);
+      dispatch({type: getRepo, payload: responseJson});
+    } catch (error) {
+      alert(error);
+    }
+  };
+};
+
 export const userToken = logindata => {
   return async dispatch => {
     // console.warn({logindata});

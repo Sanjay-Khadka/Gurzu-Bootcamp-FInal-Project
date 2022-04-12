@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import {persistor, Store} from './src/redux/store';
 import {Store as store} from './src/redux/store';
 import {PersistGate} from 'redux-persist/es/integration/react';
-
+import TestFlatlist from './src/flatlisttest';
 import GurzuLearning from './src/GurzuLearning';
 
 const App = () => {
@@ -11,6 +11,7 @@ const App = () => {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <GurzuLearning />
+        {/* <TestFlatlist /> */}
       </PersistGate>
     </Provider>
   );

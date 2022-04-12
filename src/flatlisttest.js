@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,37 +7,19 @@ import {
   Dimensions,
   TouchableOpacity,
   Switch,
+  Touchable,
 } from 'react-native';
-// import SwitchButton from './SwitchButton';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {showRepo} from './redux/actions';
 const {height, width} = Dimensions.get('window');
 const TestFlatlist = () => {
-  const taskdetails = [
-    {
-      course: [
-        {
-          id: 7,
-          name: 'Node.js',
-          is_publish: false,
-          user_id: 15,
-          description: 'Web',
-          created_at: '2022-04-08T03:59:18.729Z',
-          updated_at: '2022-04-08T03:59:18.803Z',
-        },
-        {
-          id: 8,
-          name: 'Angular.js',
-          is_publish: false,
-          user_id: 15,
-          description: 'Web',
-          created_at: '2022-04-08T03:59:18.729Z',
-          updated_at: '2022-04-08T03:59:18.803Z',
-        },
-      ],
-    },
-  ];
-  const array2 = taskdetails.map(s => ({course: s}));
-  console.log(array2.s);
+  const [repolist, setRepolist] = useState('');
+  const dispatch = useDispatch();
+  const thisbutton = () => {
+    dispatch(showRepo());
+  };
+  const repos = useSelector(state => state.authReducer.repo);
+
   const renderItem = ({item}) => {
     // console.log(item.course[1].name);
     return (
@@ -57,11 +39,16 @@ const TestFlatlist = () => {
   };
   //   return <View>{renderItem()}</View>;
   return (
-    <FlatList
-      data={taskdetails}
-      keyExtractor={item => item.id}
-      renderItem={renderItem}
-    />
+    <View>
+      <TouchableOpacity onPress={() => thisbutton()}>
+        <Text>button</Text>
+      </TouchableOpacity>
+      <FlatList
+        data={repos}
+        keyExtractor={item => item.id}
+        renderItem={renderItem}
+      />
+    </View>
   );
 };
 
