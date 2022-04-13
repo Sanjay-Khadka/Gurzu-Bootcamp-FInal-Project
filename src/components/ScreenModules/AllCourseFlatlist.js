@@ -10,32 +10,25 @@ import {
 } from 'react-native';
 import SwitchButton from './SwitchButton';
 import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 const {height, width} = Dimensions.get('window');
 const AllCourseFlatlist = () => {
+  const navigation = useNavigation();
+
+  const navigateCourseDetails = () => {
+    console.warn('pressed');
+    // navigation.navigate('CourseDetails');
+  };
   const coursedata = useSelector(state => state.mainscreen.AllCourse.data);
   console.warn(coursedata);
-  const taskdetail = [
-    {
-      id: '287344',
-      name: 'Frontend Development',
-      date: '3rd March',
-      time: '2:00 pm',
-      chapter: '-15 chapters',
-    },
-    {
-      id: '28343474',
-      name: 'Frontend Development',
-      date: '3rd March',
-      time: '2:00 pm',
-      chapter: '-15 chapters',
-    },
-  ];
 
   const renderItem = ({item}) => {
     // console.warn(item.id);
     return (
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigateCourseDetails}>
         <View style={styles.container}>
           <View style={styles.coursetitle}>
             <Text style={styles.textcourse}>{item.name}</Text>

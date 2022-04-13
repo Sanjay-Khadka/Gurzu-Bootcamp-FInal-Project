@@ -7,15 +7,20 @@ import {
   Image,
   KeyboardAvoidingView,
   Dimensions,
-  Alert,
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import {loginUser, userToken} from '../../redux/actions/AuthActions';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {CheckBox, Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 
-import {FormInput, PasswordInput} from '../../components/';
+import {
+  FormInput,
+  PasswordInput,
+  ErrorInput,
+  PasswordError,
+} from '../../components/';
 import {CustomButton} from '../../components/';
 
 const {height, width} = Dimensions.get('window');
@@ -24,8 +29,8 @@ const LoginScreen = () => {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setPassword] = useState('');
   const [check2, setCheck2] = useState(false);
-  const [isvisible, setVisibility] = useState(false);
-
+  const [isvalidEmail, setvalidEmail] = useState(true);
+  const [isValidPassword, setvalidPassword] = useState(true);
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
@@ -37,10 +42,18 @@ const LoginScreen = () => {
   };
 
   const LoginToHome = () => {
-    if (loginEmail === '' || loginPassword === '') {
-      alert('please input the required fields');
+    if (loginEmail === '') {
+      setvalidEmail(false);
       return;
-    } else {
+    }
+    if (loginPassword === '') {
+      setvalidPassword(false);
+      return;
+    }
+    if (loginEmail !== '' && loginPassword !== '') {
+      setvalidEmail(true);
+      setvalidPassword(true);
+
       var logindata = JSON.stringify({
         user: {
           email: loginEmail,
@@ -74,7 +87,14 @@ const LoginScreen = () => {
             placeholderText="Enter your email"
             value={loginEmail}
             onChangeText={email => setLoginEmail(email)}
+            onEndEditing={e => handleValidUser(e.nativeEvent.text)}
           />
+          {isvalidEmail ? null : (
+            <Animatable.View animation="fadeInLeft" duration={600}>
+              <Text style={styles.errorMessage}>*Please enter your email </Text>
+            </Animatable.View>
+          )}
+
           <PasswordInput
             labelText="Password"
             placeholderText="Enter your password"
@@ -82,7 +102,15 @@ const LoginScreen = () => {
             onChangeText={password => setPassword(password)}
             secureTextEntry={true}
           />
+          {isValidPassword ? null : (
+            <Animatable.View animation="fadeInLeft" duration={600}>
+              <Text style={styles.errorMessage}>
+                *Please enter your password{' '}
+              </Text>
+            </Animatable.View>
+          )}
         </View>
+
         {/* form input view end */}
 
         {/* container view for remember me and forgotpassword button */}
@@ -157,7 +185,7 @@ const styles = StyleSheet.create({
 
   logo: {
     position: 'relative',
-    marginLeft: 10,
+    marginHorizontal: 29,
     height: 97,
     width: 97,
   },
@@ -186,7 +214,11 @@ const styles = StyleSheet.create({
   inputcontainer: {
     marginTop: 30,
   },
-
+  errorMessage: {
+    color: 'red',
+    fontFamily: 'WorkSans-Regular',
+    fontSize: 12,
+  },
   checkboxcontainer: {
     display: 'flex',
     flexDirection: 'row',

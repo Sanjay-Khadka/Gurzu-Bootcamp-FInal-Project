@@ -16,7 +16,9 @@ import {
   tasksDetail,
   assignmentDetail,
 } from '../../redux/actions/assignmentGrades';
+import {useNavigation} from '@react-navigation/native';
 const HomeScreen = () => {
+  const navigation = useNavigation();
   const [grade, setGrade] = useState(false);
   const [todo, setTodo] = useState(false);
   const [assignment, setAssignment] = useState(true);

@@ -9,29 +9,29 @@ import {
 import {AllCourse} from '../../redux/actions/CourseActions';
 import {useDispatch, useSelector} from 'react-redux';
 
-const HomeScreen = () => {
+const CourseScreen = () => {
   const courseToken = useSelector(state => state.authReducer.authToken);
-  console.warn(courseToken);
 
-  const [todo, setTodo] = useState(false);
-  const [recents, setRecent] = useState(true);
+  const [myCourse, setMyCourse] = useState(false);
+  const [allCourse, setAllCourse] = useState(true);
 
   const dispatch = useDispatch();
   const handleTodoPress = () => {
-    setTodo(!todo);
-    setRecent(false);
+    setMyCourse(!myCourse);
+    setAllCourse(false);
   };
   const recentPress = () => {
-    setRecent(!recents);
-    setTodo(false);
-    // dispatch(AllCourse(courseToken));
+    setAllCourse(!allCourse);
+    setMyCourse(false);
+    dispatch(AllCourse(courseToken));
+    console.warn('this');
   };
 
   const handleGestuer = () => {
-    if (todo) {
+    if (myCourse) {
       return <MyCourseContainer />;
     }
-    if (recents) {
+    if (allCourse) {
       return <AllCourseContainer />;
     }
   };
@@ -46,16 +46,16 @@ const HomeScreen = () => {
         <ToggleButton
           labelText="My courses"
           iconname="pencil"
-          textColor={!todo}
-          style={!todo ? styles.togglebutton : styles.togglebutton1}
+          textColor={!myCourse}
+          style={!myCourse ? styles.togglebutton : styles.togglebutton1}
           onPress={() => handleTodoPress()}
         />
 
         <ToggleButton
-          textColor={!recents}
+          textColor={!allCourse}
           iconname="note"
           labelText="All courses"
-          style={!recents ? styles.togglebutton : styles.togglebutton1}
+          style={!allCourse ? styles.togglebutton : styles.togglebutton1}
           onPress={() => recentPress()}
         />
       </View>
@@ -64,7 +64,7 @@ const HomeScreen = () => {
     </View>
   );
 };
-export default HomeScreen;
+export default CourseScreen;
 const styles = StyleSheet.create({
   container: {
     display: 'flex',

@@ -9,9 +9,26 @@ import {
 } from '../screens';
 // import Icon from 'react-native-vector-icons/dist/Entypo';
 import Icon from 'react-native-vector-icons/dist/Feather';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {CourseDetails} from '../screens/Dashboard';
+
+const Stack = createNativeStackNavigator();
+const Bottom = createBottomTabNavigator();
+
+const CourseDetailsNav = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="CourseScreen">
+      <Stack.Screen name="CourseScreen" component={CourseScreen} />
+      <Stack.Screen name="CourseDetails" component={CourseDetails} />
+    </Stack.Navigator>
+  );
+};
 
 const BottomNav = () => {
-  const Bottom = createBottomTabNavigator();
   return (
     <Bottom.Navigator
       screenOptions={{
@@ -39,7 +56,7 @@ const BottomNav = () => {
       />
       <Bottom.Screen
         name="Courses"
-        component={CourseScreen}
+        component={CourseDetailsNav}
         options={{
           tabBarIcon: ({color, size}) => (
             <Icon color={color} name="book-open" size={size} />

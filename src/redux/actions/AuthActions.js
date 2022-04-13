@@ -23,7 +23,7 @@ export const loginUser = logindata => {
       // console.warn(response.data.token);
       const loginCredentials = response.data;
       dispatch({type: login, payload: loginCredentials});
-      // console.warn(loginCredentials);
+      console.warn(loginCredentials);
     } catch (error) {
       console.warn(error);
     }
@@ -47,7 +47,7 @@ export const userToken = logindata => {
       // console.warn(response.data.token);
       const token = response.data.token;
       dispatch({type: getToken, payload: token});
-      console.warn(token);
+      // console.warn(token);
     } catch (error) {
       console.warn(error);
     }

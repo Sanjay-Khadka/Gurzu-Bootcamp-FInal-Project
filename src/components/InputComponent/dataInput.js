@@ -10,34 +10,23 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 const {width, height} = Dimensions.get('window');
-const FormInput = ({
+const ErrorInput = ({
   labelText = '',
   placeholderText = '',
   onChangeText,
+  errorMessage,
   value,
   secureTextEntry = null,
-  style,
   ...more
 }) => {
   return (
     <View style={{marginTop: 8}}>
-      <Text style={styles.labelstyle}>{labelText}</Text>
-      <View
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{
-          padding: 8,
-          width: width - 20,
-          height: 55,
-          backgroundColor: '#EBF9FF',
-          borderRadius: 5,
-          justifyContent: 'space-between',
-          fontFamily: 'WorkSans-Regular',
-          fontSize: 12,
-          color: '#2971AB',
-          flexDirection: 'row',
-          alignItems: 'center',
-          ...style,
-        }}>
+      <View style={styles.inputHeader}>
+        <Text style={styles.labelstyle}>{labelText}</Text>
+        <Text style={styles.errorText}>{errorMessage}</Text>
+      </View>
+
+      <View style={styles.viewcontainer1}>
         <TextInput
           style={styles.input}
           placeholder={placeholderText}
@@ -50,7 +39,7 @@ const FormInput = ({
   );
 };
 
-export default FormInput;
+export default ErrorInput;
 
 const styles = StyleSheet.create({
   labelstyle: {
@@ -59,13 +48,25 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 3,
   },
+  errorText: {
+    marginRight: 5,
+    color: 'red',
+    textAlign: 'right',
+  },
+  inputHeader: {
+    justifyContent: 'space-between',
+    // alignItems: 'center',
+    flexDirection: 'row',
+  },
   input: {
     fontFamily: 'WorkSans-Regular',
     fontSize: 12,
     color: '#2971AB',
     width: width - 70,
   },
-  viewcontainer: {
+  viewcontainer1: {
+    borderWidth: 1,
+    borderColor: 'red',
     padding: 8,
     width: width - 20,
     height: 55,

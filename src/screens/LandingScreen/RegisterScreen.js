@@ -16,6 +16,7 @@ import {CustomButton, FormInput, PasswordInput} from '../../components';
 import {useDispatch, useSelector} from 'react-redux';
 import {registerUser} from '../../redux/actions/AuthActions';
 const {height} = Dimensions.get('window');
+import * as Animatable from 'react-native-animatable';
 
 const RegisterScreen = () => {
   const [firstname, setFname] = useState('');
@@ -24,6 +25,13 @@ const RegisterScreen = () => {
   const [registerPassword, setregPassword] = useState('');
   const [confirmPassword, setConfirmPass] = useState('');
   const [visible, setVisible] = useState(false);
+  const [data, setData] = useState({
+    isValidFirstname: true,
+    isValidLastName: true,
+    isValidEmail: true,
+    isValidPassword: true,
+    isValidConfirm: true,
+  });
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const RegisterToLogin = () => {
@@ -31,6 +39,68 @@ const RegisterScreen = () => {
   };
 
   const handleRegister = () => {
+    if (
+      firstname === '' &&
+      lastname === '' &&
+      registerEmail === '' &&
+      registerPassword === '' &&
+      confirmPassword === ''
+    ) {
+      setData({
+        ...data,
+        isValidConfirm: false,
+        isValidFirstname: false,
+        isValidLastName: false,
+        isValidEmail: false,
+        isValidPassword: false,
+      });
+    }
+    if (firstname !== '') {
+      setData({
+        ...data,
+        isValidFirstname: true,
+      });
+    }
+    if (lastname !== '') {
+      setData({
+        ...data,
+        isValidLastName: true,
+      });
+    }
+    if (registerEmail !== '') {
+      setData({
+        ...data,
+        isValidEmail: true,
+      });
+    }
+    if (registerPassword !== '') {
+      setData({
+        ...data,
+        isValidPassword: true,
+      });
+    }
+    if (confirmPassword !== '') {
+      setData({
+        ...data,
+        isValidConfirm: true,
+      });
+    }
+    if (
+      firstname !== '' &&
+      lastname !== '' &&
+      registerEmail !== '' &&
+      registerPassword !== '' &&
+      confirmPassword !== ''
+    ) {
+      setData({
+        ...data,
+        isValidConfirm: true,
+        isValidFirstname: true,
+        isValidLastName: true,
+        isValidEmail: true,
+        isValidPassword: true,
+      });
+    }
     dispatch(
       registerUser(
         firstname,
@@ -39,6 +109,7 @@ const RegisterScreen = () => {
         registerPassword,
         confirmPassword,
       ),
+      console.warn(data.isValidFirstname),
     );
   };
 
@@ -59,18 +130,35 @@ const RegisterScreen = () => {
           value={firstname}
           onChangeText={fname => setFname(fname)}
         />
+        {data.isValidFirstname ? null : (
+          <Animatable.View animation="fadeInLeft" duration={600}>
+            <Text style={styles.errorMessage}>
+              *Please enter your firstname
+            </Text>
+          </Animatable.View>
+        )}
         <FormInput
           labelText="Last Name"
           placeholderText="Enter your last name"
           value={lastname}
           onChangeText={lname => setLname(lname)}
         />
+        {data.isValidLastName ? null : (
+          <Animatable.View animation="fadeInLeft" duration={600}>
+            <Text style={styles.errorMessage}>*Please enter your lastname</Text>
+          </Animatable.View>
+        )}
         <FormInput
           labelText="Email"
           placeholderText="Enter your email"
           value={registerEmail}
           onChangeText={regemail => setRegEmail(regemail)}
         />
+        {data.isValidEmail ? null : (
+          <Animatable.View animation="fadeInLeft" duration={600}>
+            <Text style={styles.errorMessage}>*Please enter your email </Text>
+          </Animatable.View>
+        )}
         <PasswordInput
           labelText="Password"
           placeholderText="Enter your password"
@@ -78,6 +166,11 @@ const RegisterScreen = () => {
           onChangeText={regpass => setregPassword(regpass)}
           secureTextEntry={visible}
         />
+        {data.isValidPassword ? null : (
+          <Animatable.View animation="fadeInLeft" duration={600}>
+            <Text style={styles.errorMessage}>*Please enter your password</Text>
+          </Animatable.View>
+        )}
         <PasswordInput
           labelText="Confirm Password"
           placeholderText="Re-Enter your password"
@@ -85,7 +178,13 @@ const RegisterScreen = () => {
           onChangeText={passconfirm => setConfirmPass(passconfirm)}
           secureTextEntry={true}
         />
-
+        {data.isValidConfirm ? null : (
+          <Animatable.View animation="fadeInLeft" duration={600}>
+            <Text style={styles.errorMessage}>
+              *Please re-enter your password{' '}
+            </Text>
+          </Animatable.View>
+        )}
         <CustomButton
           labelText="Register"
           style={styles.registerButton}
@@ -129,9 +228,13 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '400',
     color: '#004277',
+  },
+  errorMessage: {
+    color: 'red',
+    fontSize: 12,
+    fontFamily: 'WorkSans-Regular',
     fontWeight: '400',
   },
-
   registerButton: {
     marginTop: -5,
   },

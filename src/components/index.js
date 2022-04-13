@@ -8,7 +8,12 @@ import {
   MyCourseFlatlist,
   AllCourseFlatlist,
 } from './ScreenModules';
-import {FormInput, PasswordInput} from './InputComponent';
+import {
+  FormInput,
+  PasswordInput,
+  ErrorInput,
+  PasswordError,
+} from './InputComponent';
 import {
   RecentContainer,
   TodoContainer,
@@ -25,7 +30,7 @@ export {
   AllCourseContainer,
   MyCourseContainer,
 };
-export {CustomButton, CustomBotton, ToggleButton, PasswordInput};
+export {CustomButton, CustomBotton, ToggleButton, PasswordInput, PasswordError};
 export {HomeScreenHeader, NavigationHeader};
 export {
   Grades,
@@ -35,4 +40,4 @@ export {
   MyCourseFlatlist,
   AllCourseFlatlist,
 };
-export {FormInput};
+export {FormInput, ErrorInput};

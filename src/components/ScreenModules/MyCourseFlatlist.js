@@ -8,33 +8,26 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
 const {height, width} = Dimensions.get('window');
-
 const MyCourseFlatList = () => {
-  const course = [
-    {
-      id: '2',
-      name: 'Frontend Development',
-      image: require('../../assets/Angular.png'),
-      assignment: 'Angular',
-    },
-    {
-      id: '22',
-      name: 'Frontend Development',
-      image: require('../../assets/Python.png'),
-      assignment: 'Python',
-    },
-    {
-      id: '1234',
-      name: 'Frontend Development',
-      image: require('../../assets/Blender.png'),
-      assignment: 'Blender',
-    },
-  ];
+  const myCourse = useSelector(state => state.mainscreen.MyCourse.data);
+  const navigation = useNavigation();
+  const myCredentials = useSelector(
+    state => state.authReducer.Login.loginCredentials,
+  );
+  console.warn(myCredentials);
+  const gotoCourseDetails = () => {
+    console.warn('this is pressed');
+    navigation.navigate('CourseDetails');
+  };
 
   const renderItem = ({item}) => {
     return (
-      <TouchableOpacity style={styles.maincontainer}>
+      <TouchableOpacity
+        style={styles.maincontainer}
+        onPress={gotoCourseDetails}>
         <View style={styles.container}>
           <Image style={styles.logo} source={item.image} />
           <Text style={styles.assignment}>{item.assignment}</Text>
@@ -45,7 +38,7 @@ const MyCourseFlatList = () => {
 
   return (
     <FlatList
-      data={course}
+      data={myCourse}
       keyExtractor={item => item.id}
       renderItem={renderItem}
       numColumns={2}

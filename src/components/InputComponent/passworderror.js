@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -10,47 +10,42 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 const {width, height} = Dimensions.get('window');
-const FormInput = ({
+const PasswordError = ({
   labelText = '',
   placeholderText = '',
-  onChangeText,
-  value,
-  secureTextEntry = null,
-  style,
+  onChangeText = null,
+  value = null,
+  handleOnPress = null,
+  secureTextEntry,
   ...more
 }) => {
+  const [visible, setVisible] = useState(true);
   return (
     <View style={{marginTop: 8}}>
       <Text style={styles.labelstyle}>{labelText}</Text>
-      <View
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{
-          padding: 8,
-          width: width - 20,
-          height: 55,
-          backgroundColor: '#EBF9FF',
-          borderRadius: 5,
-          justifyContent: 'space-between',
-          fontFamily: 'WorkSans-Regular',
-          fontSize: 12,
-          color: '#2971AB',
-          flexDirection: 'row',
-          alignItems: 'center',
-          ...style,
-        }}>
+      <View style={styles.viewcontainer}>
         <TextInput
           style={styles.input}
           placeholder={placeholderText}
           placeholderTextColor="#2971AB"
           onChangeText={onChangeText}
           value={value}
+          secureTextEntry={visible}
         />
+
+        <TouchableOpacity onPress={() => setVisible(!visible)}>
+          <Icon
+            color={'#2971AB'}
+            name={visible ? 'eye-off-outline' : 'eye-outline'}
+            size={20}
+          />
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export default FormInput;
+export default PasswordError;
 
 const styles = StyleSheet.create({
   labelstyle: {
@@ -64,6 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#2971AB',
     width: width - 70,
+    // height: height - 20,
   },
   viewcontainer: {
     padding: 8,
