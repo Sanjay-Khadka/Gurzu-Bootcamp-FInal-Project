@@ -16,6 +16,7 @@ const FormInput = ({
   onChangeText,
   value,
   secureTextEntry = null,
+  onBlur,
   style,
   ...more
 }) => {
@@ -44,6 +45,7 @@ const FormInput = ({
           placeholderTextColor="#2971AB"
           onChangeText={onChangeText}
           value={value}
+          onBlur={onBlur}
         />
       </View>
     </View>

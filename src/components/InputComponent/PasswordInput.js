@@ -15,6 +15,7 @@ const PasswordInput = ({
   placeholderText = '',
   onChangeText = null,
   value = null,
+  onBlur,
   handleOnPress = null,
   secureTextEntry,
   ...more
@@ -31,6 +32,7 @@ const PasswordInput = ({
           onChangeText={onChangeText}
           value={value}
           secureTextEntry={visible}
+          onBlur={onBlur}
         />
 
         <TouchableOpacity onPress={() => setVisible(!visible)}>

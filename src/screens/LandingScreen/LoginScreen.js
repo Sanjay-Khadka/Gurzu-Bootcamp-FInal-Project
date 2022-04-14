@@ -15,21 +15,22 @@ import {useDispatch, useSelector} from 'react-redux';
 import {CheckBox, Icon} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 
-import {
-  FormInput,
-  PasswordInput,
-  ErrorInput,
-  PasswordError,
-} from '../../components/';
+import {FormInput, PasswordInput} from '../../components/';
 import {CustomButton} from '../../components/';
-
+import {useForm, Controller} from 'react-hook-form';
 const {height, width} = Dimensions.get('window');
 
 const LoginScreen = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm();
+
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setPassword] = useState('');
   const [check2, setCheck2] = useState(false);
-  const [isvalidEmail, setvalidEmail] = useState(true);
+  const [isvalidEmail, setvalidEmail] = useState(!isvalidEmail);
   const [isValidPassword, setvalidPassword] = useState(true);
   const dispatch = useDispatch();
 
@@ -42,18 +43,12 @@ const LoginScreen = () => {
   };
 
   const LoginToHome = () => {
-    if (loginEmail === '') {
-      setvalidEmail(false);
+    if (loginEmail.length === 0 && loginPassword === 0) {
+      console.warn('this worked');
       return;
     }
-    if (loginPassword === '') {
-      setvalidPassword(false);
-      return;
-    }
-    if (loginEmail !== '' && loginPassword !== '') {
-      setvalidEmail(true);
-      setvalidPassword(true);
-
+    if (loginEmail.length !== 0 && loginPassword !== 0) {
+      console.warn('validated');
       var logindata = JSON.stringify({
         user: {
           email: loginEmail,
@@ -69,7 +64,21 @@ const LoginScreen = () => {
   const LoginToForgotPassword = () => {
     navigation.navigate('ForgotPassword');
   };
-
+  const formValidation = () => {
+    if (loginEmail.length === 0) {
+      console.warn('zero');
+      setvalidEmail(false);
+    } else {
+      setvalidEmail(true);
+    }
+  };
+  const passwordValidation = () => {
+    if (loginPassword.length === 0) {
+      setvalidPassword(false);
+    } else {
+      setvalidPassword(true);
+    }
+  };
   return (
     <KeyboardAvoidingView style={styles.container} behavior="height">
       <View style={styles.innercontainer}>
@@ -83,11 +92,12 @@ const LoginScreen = () => {
         {/* form input view start */}
         <View style={styles.inputcontainer}>
           <FormInput
+            // onBlur={() => formValidation()}
+            name="email"
             labelText="Email"
             placeholderText="Enter your email"
             value={loginEmail}
             onChangeText={email => setLoginEmail(email)}
-            onEndEditing={e => handleValidUser(e.nativeEvent.text)}
           />
           {isvalidEmail ? null : (
             <Animatable.View animation="fadeInLeft" duration={600}>
@@ -101,6 +111,7 @@ const LoginScreen = () => {
             value={loginPassword}
             onChangeText={password => setPassword(password)}
             secureTextEntry={true}
+            // onBlur={() => passwordValidation()}
           />
           {isValidPassword ? null : (
             <Animatable.View animation="fadeInLeft" duration={600}>
@@ -146,7 +157,10 @@ const LoginScreen = () => {
         {/* checkbox container end */}
 
         {/* button for email login and google signin */}
-        <CustomButton labelText="Login" handleOnPress={LoginToHome} />
+        <CustomButton
+          labelText="Login"
+          handleOnPress={handleSubmit(LoginToHome)}
+        />
 
         {/* buttons end */}
 

@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {View, Text, Image, StyleSheet, Dimensions} from 'react-native';
 import {useSelector} from 'react-redux';
-const {height, weight} = Dimensions.get('window');
+
+const {height} = Dimensions.get('window');
 
 const HomeScreenHeader = () => {
   const userdata = useSelector(state => state.authReducer.Login);

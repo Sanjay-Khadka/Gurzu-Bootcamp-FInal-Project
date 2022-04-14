@@ -38,69 +38,7 @@ const RegisterScreen = () => {
     navigation.popToTop('RegisterScreen');
   };
 
-  const handleRegister = () => {
-    if (
-      firstname === '' &&
-      lastname === '' &&
-      registerEmail === '' &&
-      registerPassword === '' &&
-      confirmPassword === ''
-    ) {
-      setData({
-        ...data,
-        isValidConfirm: false,
-        isValidFirstname: false,
-        isValidLastName: false,
-        isValidEmail: false,
-        isValidPassword: false,
-      });
-    }
-    if (firstname !== '') {
-      setData({
-        ...data,
-        isValidFirstname: true,
-      });
-    }
-    if (lastname !== '') {
-      setData({
-        ...data,
-        isValidLastName: true,
-      });
-    }
-    if (registerEmail !== '') {
-      setData({
-        ...data,
-        isValidEmail: true,
-      });
-    }
-    if (registerPassword !== '') {
-      setData({
-        ...data,
-        isValidPassword: true,
-      });
-    }
-    if (confirmPassword !== '') {
-      setData({
-        ...data,
-        isValidConfirm: true,
-      });
-    }
-    if (
-      firstname !== '' &&
-      lastname !== '' &&
-      registerEmail !== '' &&
-      registerPassword !== '' &&
-      confirmPassword !== ''
-    ) {
-      setData({
-        ...data,
-        isValidConfirm: true,
-        isValidFirstname: true,
-        isValidLastName: true,
-        isValidEmail: true,
-        isValidPassword: true,
-      });
-    }
+  const handleRegisterValidation = () => {
     dispatch(
       registerUser(
         firstname,
@@ -109,7 +47,6 @@ const RegisterScreen = () => {
         registerPassword,
         confirmPassword,
       ),
-      console.warn(data.isValidFirstname),
     );
   };
 
@@ -126,6 +63,7 @@ const RegisterScreen = () => {
         </View>
         <FormInput
           labelText="First Name"
+          onBlur={() => handleRegisterValidation()}
           placeholderText="Enter your first name"
           value={firstname}
           onChangeText={fname => setFname(fname)}
@@ -139,6 +77,7 @@ const RegisterScreen = () => {
         )}
         <FormInput
           labelText="Last Name"
+          onBlur={() => handleRegisterValidation()}
           placeholderText="Enter your last name"
           value={lastname}
           onChangeText={lname => setLname(lname)}
