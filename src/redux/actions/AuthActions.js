@@ -57,24 +57,8 @@ export const logoutUser = () => {
   return {type: logout, payload: null};
 };
 
-export const registerUser = (
-  firstname,
-  lastname,
-  registerEmail,
-  registerPassword,
-  confirmPassword,
-) => {
+export const registerUser = registerData => {
   return async dispatch => {
-    var data = JSON.stringify({
-      user: {
-        first_name: firstname,
-        last_name: lastname,
-        email: registerEmail,
-        password: registerPassword,
-        password_confirmation: confirmPassword,
-      },
-    });
-
     var config = {
       method: 'post',
       url: `${url}/users`,
@@ -83,7 +67,7 @@ export const registerUser = (
           'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NDk1NDMyODV9.1F9_iIoRAwckx8iQovUZU69IfzdS-YsGBPG6c-C4q2o',
         'Content-Type': 'application/json',
       },
-      data: data,
+      data: registerData,
     };
 
     axios(config)

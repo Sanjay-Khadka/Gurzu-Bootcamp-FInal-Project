@@ -17,126 +17,131 @@ import {useDispatch, useSelector} from 'react-redux';
 import {registerUser} from '../../redux/actions/AuthActions';
 const {height} = Dimensions.get('window');
 import * as Animatable from 'react-native-animatable';
-
+import * as Yup from 'yup';
+import {Formik} from 'formik';
+const validationSchema = Yup.object({
+  firstname: Yup.string().trim().required('firstname required'),
+  lastname: Yup.string().trim().required('lastname required'),
+  registerEmail: Yup.string().trim().required('email required'),
+  registerPassword: Yup.string().trim().required('password required'),
+  confirmPassword: Yup.string().equals(
+    [Yup.ref('registerPassword'), null],
+    'Passwords do not match',
+  ),
+});
 const RegisterScreen = () => {
-  const [firstname, setFname] = useState('');
-  const [lastname, setLname] = useState('');
-  const [registerEmail, setRegEmail] = useState('');
-  const [registerPassword, setregPassword] = useState('');
-  const [confirmPassword, setConfirmPass] = useState('');
+  const registerDetails = {
+    firstname: '',
+    lastname: '',
+    registerEmail: '',
+    registerPassword: '',
+    confirmPassword: '',
+  };
   const [visible, setVisible] = useState(false);
-  const [data, setData] = useState({
-    isValidFirstname: true,
-    isValidLastName: true,
-    isValidEmail: true,
-    isValidPassword: true,
-    isValidConfirm: true,
-  });
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const RegisterToLogin = () => {
     navigation.popToTop('RegisterScreen');
   };
 
-  const handleRegisterValidation = () => {
-    dispatch(
-      registerUser(
-        firstname,
-        lastname,
-        registerEmail,
-        registerPassword,
-        confirmPassword,
-      ),
-    );
-  };
-
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="height">
-      <ScrollView>
-        <View style={styles.headercontainer}>
-          <Image
-            style={styles.logo}
-            source={require('../../assets/gurzuIcon.png')}
-          />
+    <Formik
+      initialValues={registerDetails}
+      validationSchema={validationSchema}
+      onSubmit={(values, formikActions) => {
+        var registerData = JSON.stringify({
+          user: {
+            first_name: values.firstname,
+            last_name: values.lastname,
+            email: values.registerEmail,
+            password: values.registerPassword,
+            password_confirmation: values.confirmPassword,
+          },
+        });
+        dispatch(registerUser(registerData));
+      }}>
+      {({handleChange, handleSubmit, handleBlur, touched, values, errors}) => {
+        const {
+          firstname,
+          lastname,
+          registerEmail,
+          registerPassword,
+          confirmPassword,
+        } = values;
+        return (
+          <KeyboardAvoidingView style={styles.container} behavior="height">
+            <ScrollView>
+              <View style={styles.headercontainer}>
+                <Image
+                  style={styles.logo}
+                  source={require('../../assets/gurzuIcon.png')}
+                />
 
-          <Text style={styles.header}>Register</Text>
-        </View>
-        <FormInput
-          labelText="First Name"
-          onBlur={() => handleRegisterValidation()}
-          placeholderText="Enter your first name"
-          value={firstname}
-          onChangeText={fname => setFname(fname)}
-        />
-        {data.isValidFirstname ? null : (
-          <Animatable.View animation="fadeInLeft" duration={600}>
-            <Text style={styles.errorMessage}>
-              *Please enter your firstname
-            </Text>
-          </Animatable.View>
-        )}
-        <FormInput
-          labelText="Last Name"
-          onBlur={() => handleRegisterValidation()}
-          placeholderText="Enter your last name"
-          value={lastname}
-          onChangeText={lname => setLname(lname)}
-        />
-        {data.isValidLastName ? null : (
-          <Animatable.View animation="fadeInLeft" duration={600}>
-            <Text style={styles.errorMessage}>*Please enter your lastname</Text>
-          </Animatable.View>
-        )}
-        <FormInput
-          labelText="Email"
-          placeholderText="Enter your email"
-          value={registerEmail}
-          onChangeText={regemail => setRegEmail(regemail)}
-        />
-        {data.isValidEmail ? null : (
-          <Animatable.View animation="fadeInLeft" duration={600}>
-            <Text style={styles.errorMessage}>*Please enter your email </Text>
-          </Animatable.View>
-        )}
-        <PasswordInput
-          labelText="Password"
-          placeholderText="Enter your password"
-          value={registerPassword}
-          onChangeText={regpass => setregPassword(regpass)}
-          secureTextEntry={visible}
-        />
-        {data.isValidPassword ? null : (
-          <Animatable.View animation="fadeInLeft" duration={600}>
-            <Text style={styles.errorMessage}>*Please enter your password</Text>
-          </Animatable.View>
-        )}
-        <PasswordInput
-          labelText="Confirm Password"
-          placeholderText="Re-Enter your password"
-          value={confirmPassword}
-          onChangeText={passconfirm => setConfirmPass(passconfirm)}
-          secureTextEntry={true}
-        />
-        {data.isValidConfirm ? null : (
-          <Animatable.View animation="fadeInLeft" duration={600}>
-            <Text style={styles.errorMessage}>
-              *Please re-enter your password{' '}
-            </Text>
-          </Animatable.View>
-        )}
-        <CustomButton
-          labelText="Register"
-          style={styles.registerButton}
-          onPress={() => handleRegister()}
-        />
-        <View style={styles.infocontainer}>
-          <Text style={styles.questiontext}>Already have an account?</Text>
-          <TouchableOpacity onPress={RegisterToLogin}>
-            <Text style={styles.questionbutton}>Login</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+                <Text style={styles.header}>Register</Text>
+              </View>
+              <FormInput
+                labelText="First Name"
+                error={touched.firstname && errors.firstname}
+                onBlur={handleBlur('firstname')}
+                placeholderText="Enter your first name"
+                value={firstname}
+                onChangeText={handleChange('firstname')}
+              />
+
+              <FormInput
+                labelText="Last Name"
+                error={touched.lastname && errors.lastname}
+                onBlur={handleBlur('lastname')}
+                placeholderText="Enter your last name"
+                value={lastname}
+                onChangeText={handleChange('lastname')}
+              />
+
+              <FormInput
+                labelText="Email"
+                error={touched.registerEmail && errors.registerEmail}
+                onBlur={handleBlur('registerEmail')}
+                placeholderText="Enter your email"
+                value={registerEmail}
+                onChangeText={handleChange('registerEmail')}
+              />
+
+              <PasswordInput
+                labelText="Password"
+                error={touched.registerPassword && errors.registerPassword}
+                onBlur={handleBlur('registerPassword')}
+                placeholderText="Enter your password"
+                value={registerPassword}
+                onChangeText={handleChange('registerPassword')}
+                secureTextEntry={visible}
+              />
+              <PasswordInput
+                labelText="Confirm Password"
+                error={touched.confirmPassword && errors.confirmPassword}
+                onBlur={handleBlur('confirmPassword')}
+                placeholderText="Re-Enter your password"
+                value={confirmPassword}
+                onChangeText={handleChange('confirmPassword')}
+                secureTextEntry={true}
+              />
+              <CustomButton
+                labelText="Register"
+                style={styles.registerButton}
+                onPress={handleSubmit}
+              />
+              <View style={styles.infocontainer}>
+                <Text style={styles.questiontext}>
+                  Already have an account?
+                </Text>
+                <TouchableOpacity onPress={RegisterToLogin}>
+                  <Text style={styles.questionbutton}>Login</Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
+          </KeyboardAvoidingView>
+        );
+      }}
+    </Formik>
   );
 };
 

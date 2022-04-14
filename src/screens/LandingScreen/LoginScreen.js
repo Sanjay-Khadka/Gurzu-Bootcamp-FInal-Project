@@ -17,164 +17,132 @@ import {useNavigation} from '@react-navigation/native';
 
 import {FormInput, PasswordInput} from '../../components/';
 import {CustomButton} from '../../components/';
-import {useForm, Controller} from 'react-hook-form';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
+const validationSchema = Yup.object({
+  email: Yup.string().trim().required('email required'),
+  password: Yup.string().trim().required('password required'),
+});
 const {height, width} = Dimensions.get('window');
-
 const LoginScreen = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: {errors},
-  } = useForm();
-
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassword, setPassword] = useState('');
-  const [check2, setCheck2] = useState(false);
-  const [isvalidEmail, setvalidEmail] = useState(!isvalidEmail);
-  const [isValidPassword, setvalidPassword] = useState(true);
   const dispatch = useDispatch();
-
   const navigation = useNavigation();
-
-  // const data = useSelector(state => state.authReducer.Login);
-
-  const LoginToRegister = () => {
-    navigation.navigate('RegisterScreen');
+  const [check2, setCheck2] = useState(false);
+  const userDetails = {
+    email: '',
+    password: '',
   };
-
-  const LoginToHome = () => {
-    if (loginEmail.length === 0 && loginPassword === 0) {
-      console.warn('this worked');
-      return;
-    }
-    if (loginEmail.length !== 0 && loginPassword !== 0) {
-      console.warn('validated');
-      var logindata = JSON.stringify({
-        user: {
-          email: loginEmail,
-          password: loginPassword,
-        },
-      });
-
-      dispatch(loginUser(logindata));
-      dispatch(userToken(logindata));
-    }
-  };
-
   const LoginToForgotPassword = () => {
     navigation.navigate('ForgotPassword');
   };
-  const formValidation = () => {
-    if (loginEmail.length === 0) {
-      console.warn('zero');
-      setvalidEmail(false);
-    } else {
-      setvalidEmail(true);
-    }
-  };
-  const passwordValidation = () => {
-    if (loginPassword.length === 0) {
-      setvalidPassword(false);
-    } else {
-      setvalidPassword(true);
-    }
+  const LoginToRegister = () => {
+    navigation.navigate('RegisterScreen');
   };
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="height">
-      <View style={styles.innercontainer}>
-        <Image
-          style={styles.logo}
-          source={require('../../assets/gurzuIcon.png')}
-        />
-
-        <Text style={styles.header}>Welcome back!</Text>
-        <Text style={styles.secondheader}>Login to your account</Text>
-        {/* form input view start */}
-        <View style={styles.inputcontainer}>
-          <FormInput
-            // onBlur={() => formValidation()}
-            name="email"
-            labelText="Email"
-            placeholderText="Enter your email"
-            value={loginEmail}
-            onChangeText={email => setLoginEmail(email)}
-          />
-          {isvalidEmail ? null : (
-            <Animatable.View animation="fadeInLeft" duration={600}>
-              <Text style={styles.errorMessage}>*Please enter your email </Text>
-            </Animatable.View>
-          )}
-
-          <PasswordInput
-            labelText="Password"
-            placeholderText="Enter your password"
-            value={loginPassword}
-            onChangeText={password => setPassword(password)}
-            secureTextEntry={true}
-            // onBlur={() => passwordValidation()}
-          />
-          {isValidPassword ? null : (
-            <Animatable.View animation="fadeInLeft" duration={600}>
-              <Text style={styles.errorMessage}>
-                *Please enter your password{' '}
-              </Text>
-            </Animatable.View>
-          )}
-        </View>
-
-        {/* form input view end */}
-
-        {/* container view for remember me and forgotpassword button */}
-        <View style={styles.checkboxcontainer}>
-          <CheckBox
-            center
-            title={<Text style={styles.checkboxtitle}>Remember me</Text>}
-            uncheckedIcon={
-              <Icon
-                name="radio-button-checked"
-                type="material"
-                borderColor="#004277"
-                color="#004277"
-                size={15}
+    <Formik
+      initialValues={userDetails}
+      validationSchema={validationSchema}
+      onSubmit={(values, formikActions) => {
+        console.log(values.email);
+        var logindata = JSON.stringify({
+          user: {
+            email: values.email,
+            password: values.password,
+          },
+        });
+        dispatch(loginUser(logindata));
+        dispatch(loginUser(logindata));
+      }}>
+      {({handleChange, handleSubmit, handleBlur, touched, values, errors}) => {
+        const {email, password} = values;
+        return (
+          <KeyboardAvoidingView style={styles.container} behavior="height">
+            <View style={styles.innercontainer}>
+              <Image
+                style={styles.logo}
+                source={require('../../assets/gurzuIcon.png')}
               />
-            }
-            checkedIcon={
-              <Icon
-                name="radio-button-unchecked"
-                type="material"
-                color="#004277"
-                size={15}
+
+              <Text style={styles.header}>Welcome back!</Text>
+              <Text style={styles.secondheader}>Login to your account</Text>
+              {/* form input view start */}
+              <View style={styles.inputcontainer}>
+                <FormInput
+                  labelText="Email"
+                  error={touched.email && errors.email}
+                  placeholderText="Enter your email"
+                  value={email}
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                />
+
+                <PasswordInput
+                  labelText="Password"
+                  error={touched.password && errors.password}
+                  placeholderText="Enter your password"
+                  value={password}
+                  onChangeText={handleChange('password')}
+                  secureTextEntry={true}
+                  onBlur={handleBlur('password')}
+                />
+              </View>
+
+              {/* form input view end */}
+
+              {/* container view for remember me and forgotpassword button */}
+              <View style={styles.checkboxcontainer}>
+                <CheckBox
+                  center
+                  title={<Text style={styles.checkboxtitle}>Remember me</Text>}
+                  uncheckedIcon={
+                    <Icon
+                      name="radio-button-checked"
+                      type="material"
+                      borderColor="#004277"
+                      color="#004277"
+                      size={15}
+                    />
+                  }
+                  checkedIcon={
+                    <Icon
+                      name="radio-button-unchecked"
+                      type="material"
+                      color="#004277"
+                      size={15}
+                    />
+                  }
+                  checked={check2}
+                  onPress={() => setCheck2(!check2)}
+                />
+
+                <TouchableOpacity onPress={LoginToForgotPassword}>
+                  <Text style={styles.textcolor}>Forgot Password?</Text>
+                </TouchableOpacity>
+              </View>
+              {/* checkbox container end */}
+
+              {/* button for email login and google signin */}
+              <CustomButton
+                labelText="Login"
+                // handleOnPress={handleSubmit(LoginToHome)}
               />
-            }
-            checked={check2}
-            onPress={() => setCheck2(!check2)}
-          />
 
-          <TouchableOpacity onPress={LoginToForgotPassword}>
-            <Text style={styles.textcolor}>Forgot Password?</Text>
-          </TouchableOpacity>
-        </View>
-        {/* checkbox container end */}
+              {/* buttons end */}
 
-        {/* button for email login and google signin */}
-        <CustomButton
-          labelText="Login"
-          handleOnPress={handleSubmit(LoginToHome)}
-        />
-
-        {/* buttons end */}
-
-        {/* footer info start */}
-        <View style={styles.infocontainer}>
-          <Text style={styles.questiontext}>Don't have an account?</Text>
-          <TouchableOpacity onPress={LoginToRegister}>
-            <Text style={styles.questionbutton}>join today</Text>
-          </TouchableOpacity>
-        </View>
-        {/* {LoginToHome()} */}
-        {/* footer info end */}
-      </View>
-    </KeyboardAvoidingView>
+              {/* footer info start */}
+              <View style={styles.infocontainer}>
+                <Text style={styles.questiontext}>Don't have an account?</Text>
+                <TouchableOpacity onPress={LoginToRegister}>
+                  <Text style={styles.questionbutton}>join today</Text>
+                </TouchableOpacity>
+              </View>
+              {/* {LoginToHome()} */}
+              {/* footer info end */}
+            </View>
+          </KeyboardAvoidingView>
+        );
+      }}
+    </Formik>
   );
 };
 
