@@ -5,7 +5,7 @@ const CourseDetails = () => {
   return (
     <View>
       <View>
-        <HomeScreenHeader />
+        <HomeScreenHeader Title="My Courses" />
       </View>
       <View style={styles.maincontainer}>
         <TouchableOpacity>

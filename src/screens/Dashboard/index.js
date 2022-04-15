@@ -4,11 +4,12 @@ import HomeScreen from './HomeScreen';
 import SettingsScreen from './SettingsScreen';
 import CalendarScreen from './CalendarScreen';
 import CourseDetails from './CourseDetails';
-
+import ChangePassword from './ChangePassword';
 export {
   HomeScreen,
   SettingsScreen,
   CalendarScreen,
   CourseScreen,
   CourseDetails,
+  ChangePassword,
 };

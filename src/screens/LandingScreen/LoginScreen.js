@@ -20,8 +20,8 @@ import {CustomButton} from '../../components/';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 const validationSchema = Yup.object({
-  email: Yup.string().trim().required('email required'),
-  password: Yup.string().trim().required('password required'),
+  email: Yup.string().email('Invalid Email').trim().required('Email required'),
+  password: Yup.string().trim().required('Password required'),
 });
 const {height, width} = Dimensions.get('window');
 const LoginScreen = () => {
@@ -43,13 +43,13 @@ const LoginScreen = () => {
       initialValues={userDetails}
       validationSchema={validationSchema}
       onSubmit={(values, formikActions) => {
-        console.log(values.email);
         var logindata = JSON.stringify({
           user: {
             email: values.email,
             password: values.password,
           },
         });
+        console.warn('this is pressed');
         dispatch(loginUser(logindata));
         dispatch(loginUser(logindata));
       }}>
@@ -122,10 +122,7 @@ const LoginScreen = () => {
               {/* checkbox container end */}
 
               {/* button for email login and google signin */}
-              <CustomButton
-                labelText="Login"
-                // handleOnPress={handleSubmit(LoginToHome)}
-              />
+              <CustomButton labelText="Login" handleOnPress={handleSubmit} />
 
               {/* buttons end */}
 
@@ -133,7 +130,7 @@ const LoginScreen = () => {
               <View style={styles.infocontainer}>
                 <Text style={styles.questiontext}>Don't have an account?</Text>
                 <TouchableOpacity onPress={LoginToRegister}>
-                  <Text style={styles.questionbutton}>join today</Text>
+                  <Text style={styles.questionbutton}>Join today</Text>
                 </TouchableOpacity>
               </View>
               {/* {LoginToHome()} */}
@@ -166,12 +163,14 @@ const styles = StyleSheet.create({
   },
 
   logo: {
+    alignItems: 'center',
     position: 'relative',
     marginHorizontal: 29,
     height: 97,
     width: 97,
   },
   header: {
+    textAlign: 'center',
     fontFamily: 'WorkSans-Regular',
     position: 'relative',
     width: 238,
@@ -184,6 +183,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   secondheader: {
+    textAlign: 'center',
     fontFamily: 'WorkSans-Regular',
     width: 180,
     height: 22,
@@ -194,6 +194,8 @@ const styles = StyleSheet.create({
   },
 
   inputcontainer: {
+    width: width - 55,
+    alignItems: 'center',
     marginTop: 30,
   },
   errorMessage: {
@@ -216,30 +218,8 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginLeft: 8,
   },
-  signin: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginVertical: 5,
-    position: 'relative',
-    top: 22,
-    paddingVertical: 10,
-    backgroundColor: '#FFFF',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#004277',
-    width: width - 30,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  },
-  signintext: {
-    textAlign: 'center',
-    fontSize: 16,
-    fontFamily: 'WorkSans-Regular',
-    fontWeight: '500',
-    color: '#004277',
-    marginRight: 50,
-  },
   questiontext: {
+    textAlign: 'center',
     marginTop: 30,
     color: '#616161',
     fontFamily: 'WorkSans-Regular',
@@ -247,7 +227,8 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   questionbutton: {
-    marginLeft: 10,
+    textAlign: 'center',
+    marginLeft: 5,
     marginTop: 35,
     color: '#004277',
     fontSize: 13,

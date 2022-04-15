@@ -19,9 +19,15 @@ import {useDispatch} from 'react-redux';
 import {logoutUser} from '../../redux/actions/AuthActions';
 const SettingsScreen = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const maintoAuth = () => {
     dispatch(logoutUser());
     // bottomnavigation.navigate('stack')
+  };
+
+  const settingsToPassword = () => {
+    console.warn('navigated');
+    navigation.navigate('passwordScreeen');
   };
 
   const bottomnavigation = useNavigation();
@@ -40,37 +46,14 @@ const SettingsScreen = () => {
             <Icon color={'#616161'} name="chevron-right" size={20} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonstyle}>
+          <TouchableOpacity
+            style={styles.buttonstyle}
+            onPress={settingsToPassword}>
             <Text style={styles.settingsColor}>Change password</Text>
             <Icon color={'#616161'} name="chevron-right" size={20} />
           </TouchableOpacity>
         </View>
 
-        <View style={styles.accountcontainer}>
-          <Icon color={'#004277'} name="notification" size={20} />
-          <Text style={styles.account}>Notifications</Text>
-        </View>
-
-        <View>
-          <TouchableOpacity style={styles.notificationcontainer}>
-            <Text style={styles.settingsColor}>Notifications</Text>
-            {/* <Switch onValueChange={console.warn('toggled')} /> */}
-            <SwitchButton />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.morecontainer}>
-          <Icon color={'#004277'} name="plus" size={20} />
-          <Text style={styles.account}>More</Text>
-        </View>
-        <View style={styles.settingtext}>
-          <TouchableOpacity>
-            <Text style={styles.settingsColor}>Language</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <Text style={styles.settingsColor}>Country</Text>
-          </TouchableOpacity>
-        </View>
         <TouchableOpacity style={styles.logoutbutton} onPress={maintoAuth}>
           <Icon color={'#FF0000'} name="log-out" size={20} />
 

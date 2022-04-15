@@ -15,74 +15,75 @@ import {FormInput} from '../../components';
 const {height, width} = Dimensions.get('screen');
 import {useNavigation} from '@react-navigation/native';
 import {forgotPassword} from '../../redux/actions/assignmentGrades';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
+const validationSchema = Yup.object({
+  email: Yup.string().trim().required('email required'),
+});
 const ForgotPasswordScreen = () => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
+  const emailDetail = {
+    email: '',
+  };
 
   const navigation = useNavigation();
 
-  const onSendRequestPressed = () => {
-    dispatch(forgotPassword(email));
-    navigation.navigate('ResetPasswordScreen');
-  };
-
   const gotoLogin = () => {
-    // console.warn('Loggenin');
     navigation.navigate('LoginScreen');
   };
 
   return (
-    <KeyboardAvoidingView behavior="position">
-      <View style={styles.root}>
-        <View style={styles.container}>
-          <Image
-            source={require('../../assets/F3.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <Text style={styles.title}>Forgot Password</Text>
-          <Text style={styles.text}>
-            Enter your email and a link will be sent {'\n'}
-            to the provided email
-          </Text>
-          <FormInput
-            placeholderText="Enter your email"
-            labelText="Email"
-            onChangeText={password => setEmail(password)}
-          />
-          <CustomButton
-            onPress={onSendRequestPressed}
-            labelText="Send Request"
-            type="SECONDARY"
-          />
+    <Formik
+      initialValues={emailDetail}
+      validationSchema={validationSchema}
+      onSubmit={values => {
+        dispatch(forgotPassword(values.email));
+        navigation.navigate('ResetPasswordScreen');
+      }}>
+      {({handleChange, handleBlur, handleSubmit, errors, values, touched}) => {
+        const {email} = values;
+        return (
+          <KeyboardAvoidingView behavior="position">
+            <View style={styles.root}>
+              <View style={styles.container}>
+                <Image
+                  source={require('../../assets/F3.png')}
+                  style={styles.logo}
+                  resizeMode="contain"
+                />
+                <Text style={styles.title}>Forgot Password</Text>
+                <Text style={styles.text}>
+                  Enter your email and a link will be sent {'\n'}
+                  to the provided email
+                </Text>
+                <FormInput
+                  placeholderText="Enter your email"
+                  error={touched.email && errors.email}
+                  labelText="Email"
+                  value={email}
+                  onChangeText={handleChange('email')}
+                  onBlur={handleBlur('email')}
+                />
+                <CustomButton
+                  onPress={handleSubmit}
+                  labelText="Send Request"
+                  type="SECONDARY"
+                />
 
-          <View style={styles.footer}>
-            <Text
-              style={{
-                color: '#7C7C7A',
-                marginLeft: 25,
-                marginTop: 35,
-                fontSize: 14,
-                fontFamily: 'WorkSans-Regular',
-              }}>
-              Remembered your Password?{' '}
-            </Text>
-            <TouchableOpacity onPress={gotoLogin}>
-              <Text
-                style={{
-                  color: '#004277',
-                  fontSize: 14,
-                  marginTop: 35,
-                  marginLeft: 5,
-                  fontFamily: 'WorkSans-Regular',
-                }}>
-                Login
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </KeyboardAvoidingView>
+                <View style={styles.footer}>
+                  <Text style={styles.questionText}>
+                    Remembered your Password?
+                  </Text>
+                  <TouchableOpacity onPress={gotoLogin}>
+                    <Text style={styles.loginText}>Login</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </KeyboardAvoidingView>
+        );
+      }}
+    </Formik>
   );
 };
 
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     margin: 35,
-    marginTop: 90,
+    marginTop: 80,
   },
 
   text: {
@@ -103,13 +104,14 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 32,
+    fontSize: 30,
+    textAlign: 'center',
     fontWeight: '400',
     color: '#004277',
-    margin: 20,
+    margin: 18,
     fontFamily: 'WorkSans-Regular',
     letterSpacing: 2,
-    width: 293,
+    width: width,
     height: 45,
   },
 
@@ -129,11 +131,25 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     padding: 30,
-    marginTop: 50,
+    marginTop: height / 20,
     width: width - 10,
     top: height / 100,
   },
-
+  questionText: {
+    textAlign: 'center',
+    color: '#7C7C7A',
+    marginTop: 35,
+    fontSize: 14,
+    fontFamily: 'WorkSans-Regular',
+  },
+  loginText: {
+    textAlign: 'center',
+    color: '#004277',
+    fontSize: 14,
+    marginTop: 35,
+    marginLeft: 7,
+    fontFamily: 'WorkSans-Regular',
+  },
   footer: {
     display: 'flex',
     flexDirection: 'row',

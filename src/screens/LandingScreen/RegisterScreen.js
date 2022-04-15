@@ -15,15 +15,18 @@ import {useNavigation} from '@react-navigation/native';
 import {CustomButton, FormInput, PasswordInput} from '../../components';
 import {useDispatch, useSelector} from 'react-redux';
 import {registerUser} from '../../redux/actions/AuthActions';
-const {height} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 import * as Animatable from 'react-native-animatable';
 import * as Yup from 'yup';
 import {Formik} from 'formik';
 const validationSchema = Yup.object({
   firstname: Yup.string().trim().required('firstname required'),
   lastname: Yup.string().trim().required('lastname required'),
-  registerEmail: Yup.string().trim().required('email required'),
-  registerPassword: Yup.string().trim().required('password required'),
+  registerEmail: Yup.string()
+    .email('Invalid Email')
+    .trim()
+    .required('Email required'),
+  registerPassword: Yup.string().trim().required('Password required'),
   confirmPassword: Yup.string().equals(
     [Yup.ref('registerPassword'), null],
     'Passwords do not match',
@@ -70,7 +73,14 @@ const RegisterScreen = () => {
         } = values;
         return (
           <KeyboardAvoidingView style={styles.container} behavior="height">
-            <ScrollView>
+            <ScrollView
+              styles={{
+                width: width,
+                height: height,
+                alignItems: 'center',
+                // flex: 3,
+                // justifyContent: 'center',
+              }}>
               <View style={styles.headercontainer}>
                 <Image
                   style={styles.logo}
@@ -154,6 +164,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    width: width,
   },
 
   headercontainer: {
@@ -168,6 +179,7 @@ const styles = StyleSheet.create({
     width: 97,
   },
   header: {
+    textAlign: 'center',
     fontFamily: 'WorkSans-Regular',
     fontSize: 32,
     fontWeight: '400',
@@ -191,8 +203,8 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   questionbutton: {
-    marginLeft: 10,
-    marginTop: 35,
+    marginLeft: 5,
+    marginTop: 32,
     color: '#004277',
     fontSize: 13,
     fontFamily: 'WorkSans-Regular',

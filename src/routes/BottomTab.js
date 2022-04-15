@@ -1,39 +1,18 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-// import { NavigationContainer } from '@react-navigation/native';
-import {
-  HomeScreen,
-  CalendarScreen,
-  SettingsScreen,
-  CourseScreen,
-} from '../screens';
+import {HomeScreen, CalendarScreen} from '../screens';
 // import Icon from 'react-native-vector-icons/dist/Entypo';
 import Icon from 'react-native-vector-icons/dist/Feather';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {CourseDetails} from '../screens/Dashboard';
+import {CourseDetailsNav, SettingStackNav} from '.';
 
-const Stack = createNativeStackNavigator();
 const Bottom = createBottomTabNavigator();
-
-const CourseDetailsNav = () => {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      initialRouteName="CourseScreen">
-      <Stack.Screen name="CourseScreen" component={CourseScreen} />
-      <Stack.Screen name="CourseDetails" component={CourseDetails} />
-    </Stack.Navigator>
-  );
-};
-
 const BottomNav = () => {
   return (
     <Bottom.Navigator
       screenOptions={{
         headerShown: false,
         tabBarActiveBackgroundColor: '#FFFF',
+        tabBarHideOnKeyboard: true,
         tabBarItemStyle: {
           borderRadius: 10,
           margin: 2,
@@ -74,7 +53,7 @@ const BottomNav = () => {
       />
       <Bottom.Screen
         name="Settings"
-        component={SettingsScreen}
+        component={SettingStackNav}
         options={{
           tabBarIcon: ({color, size}) => (
             <Icon color={color} name="settings" size={size} />

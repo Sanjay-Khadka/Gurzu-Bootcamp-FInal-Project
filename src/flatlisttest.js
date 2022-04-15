@@ -1,41 +1,55 @@
-// import React, {useState, useEffect} from 'react';
-// import {
-//   View,
-//   Text,
-//   StyleSheet,
-//   FlatList,
-//   Dimensions,
-//   TouchableOpacity,
-//   Switch,
-//   Touchable,
-// } from 'react-native';
-// import {Formik} from 'formik';
-// import FormTest from './FormTest';
-// import {TextInput} from 'react-native-hook-form';
-// const FlatlistTest = () => {
-//   return (
-//     <View>
-//       <Formik
-//         initialValues={{email: '', password: ''}}
-//         onSubmit={values => {
-//           //   onsubmit
-//         }}>
-//         {props => (
-//           <View>
-//             {console.log(props.values.password)}
-//             <FormTest
-//               name="email"
-//               labelText="Email"
-//               placeholderText="Enter your email"
-//               value={props.values.email}
-//               onChangeText={props.handleChange('email')}
-//             />
+import React, {useState} from 'react';
+import {BottomSheet, Button, ListItem} from '@rneui/themed';
+import {StyleSheet} from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-//             <Text>${props.values.email}</Text>
-//           </View>
-//         )}
-//       </Formik>
-//     </View>
-//   );
-// };
-// export default FlatlistTest;
+type BottomSheetComponentProps = {};
+
+const BottomSheetComponent: React.FunctionComponent<
+  BottomSheetComponentProps,
+> = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const list = [
+    {title: 'List Item 1'},
+    {
+      title: 'List Item 2',
+      onPress: () => console.warn('listitem2 preseeed'),
+    },
+    {
+      title: 'Cancel',
+      containerStyle: {backgroundColor: 'red'},
+      titleStyle: {color: 'white'},
+      onPress: () => setIsVisible(false),
+    },
+  ];
+
+  return (
+    <SafeAreaProvider>
+      <Button
+        title="Open Bottom Sheet"
+        onPress={() => setIsVisible(true)}
+        buttonStyle={styles.button}
+      />
+      <BottomSheet modalProps={{}} isVisible={isVisible}>
+        {list.map((l, i) => (
+          <ListItem
+            key={i}
+            containerStyle={l.containerStyle}
+            onPress={l.onPress}>
+            <ListItem.Content>
+              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        ))}
+      </BottomSheet>
+    </SafeAreaProvider>
+  );
+};
+
+const styles = StyleSheet.create({
+  button: {
+    margin: 10,
+  },
+});
+
+export default BottomSheetComponent;

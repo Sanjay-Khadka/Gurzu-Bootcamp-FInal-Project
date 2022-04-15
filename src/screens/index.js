@@ -4,6 +4,7 @@ import {
   SettingsScreen,
   CourseScreen,
   CourseDetails,
+  ChangePassword,
 } from './Dashboard';
 import TestScreen from './LandingScreen/testscreen';
 import {LoginScreen, RegisterScreen} from './LandingScreen';
@@ -14,5 +15,6 @@ export {
   SettingsScreen,
   CourseScreen,
   CourseDetails,
+  ChangePassword,
 };
 export default TestScreen;

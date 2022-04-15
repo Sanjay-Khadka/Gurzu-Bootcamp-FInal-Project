@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import {ToggleButton} from '../../components';
+import {NavigationHeader, ToggleButton} from '../../components';
 import {
   HomeScreenHeader,
   AllCourseContainer,
@@ -39,7 +39,7 @@ const CourseScreen = () => {
   return (
     <View style={styles.container}>
       <View>
-        <HomeScreenHeader />
+        <NavigationHeader Title="Courses" />
       </View>
 
       <View style={styles.buttoncontainer}>

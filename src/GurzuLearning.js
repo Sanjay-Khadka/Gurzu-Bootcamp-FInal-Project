@@ -7,7 +7,10 @@ const GurzuLearning = () => {
   // console.warn(token);
   return (
     <NavigationContainer>
-      {token ? <BottomNav /> : <StackNav />}
+      {/* {token ? */}
+      <BottomNav />
+
+      {/* <StackNav /> */}
     </NavigationContainer>
   );
 };
