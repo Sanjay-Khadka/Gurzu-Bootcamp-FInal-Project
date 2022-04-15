@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -12,12 +12,9 @@ import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 const {height, width} = Dimensions.get('window');
 const MyCourseFlatList = () => {
-  const myCourse = useSelector(state => state.mainscreen.MyCourse.data);
+  const myCourseData = useSelector(state => state.mainscreen.MyCourse);
   const navigation = useNavigation();
-  const myCredentials = useSelector(
-    state => state.authReducer.Login.loginCredentials,
-  );
-  console.warn(myCredentials);
+
   const gotoCourseDetails = () => {
     console.warn('this is pressed');
     navigation.navigate('CourseDetails');
@@ -29,8 +26,8 @@ const MyCourseFlatList = () => {
         style={styles.maincontainer}
         onPress={gotoCourseDetails}>
         <View style={styles.container}>
-          <Image style={styles.logo} source={item.image} />
-          <Text style={styles.assignment}>{item.assignment}</Text>
+          <Image style={styles.logo} source={item.image.filename} />
+          <Text style={styles.assignment}>{item.name}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -38,7 +35,8 @@ const MyCourseFlatList = () => {
 
   return (
     <FlatList
-      data={myCourse}
+      showsVerticalScrollIndicator={false}
+      data={myCourseData}
       keyExtractor={item => item.id}
       renderItem={renderItem}
       numColumns={2}
@@ -52,7 +50,7 @@ const styles = StyleSheet.create({
   maincontainer: {
     elevation: 2,
     width: width / 2.2,
-    marginHorizontal: 10,
+    marginHorizontal: 6,
     marginVertical: 15,
     borderRadius: 15,
     paddingVertical: 10,

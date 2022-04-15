@@ -14,8 +14,9 @@ export default MyCourseContainer;
 
 const styles = StyleSheet.create({
   mycoursecontainer: {
-    backgroundColor: 'white',
     width: width,
+    justifyContent: 'center',
+    backgroundColor: 'white',
     alignItems: 'center',
     // backgroundColor: 'black',
     display: 'flex',

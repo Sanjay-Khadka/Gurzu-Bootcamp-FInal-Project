@@ -7,6 +7,7 @@ import {
   Image,
   KeyboardAvoidingView,
   Dimensions,
+  Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {loginUser, userToken} from '../../redux/actions/AuthActions';
@@ -25,6 +26,8 @@ const validationSchema = Yup.object({
 });
 const {height, width} = Dimensions.get('window');
 const LoginScreen = () => {
+  const [errorFlag, setErrorFlag] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [check2, setCheck2] = useState(false);
@@ -38,6 +41,9 @@ const LoginScreen = () => {
   const LoginToRegister = () => {
     navigation.navigate('RegisterScreen');
   };
+  const userData = useSelector(state => state.authReducer.Login);
+  const message = userData?.data?.message;
+  console.warn(message);
   return (
     <Formik
       initialValues={userDetails}
@@ -49,9 +55,13 @@ const LoginScreen = () => {
             password: values.password,
           },
         });
-        console.warn('this is pressed');
         dispatch(loginUser(logindata));
-        dispatch(loginUser(logindata));
+        dispatch(userToken(logindata));
+        if (errorMessage) {
+          setErrorFlag(true);
+        } else {
+          setErrorFlag(false);
+        }
       }}>
       {({handleChange, handleSubmit, handleBlur, touched, values, errors}) => {
         const {email, password} = values;
@@ -135,6 +145,17 @@ const LoginScreen = () => {
               </View>
               {/* {LoginToHome()} */}
               {/* footer info end */}
+              {message ? (
+                <Text
+                  style={{
+                    color: 'red',
+                    fontFamily: 'WorkSans-Regular',
+                    fontSize: 12,
+                    fontWeight: '500',
+                  }}>
+                  {message}
+                </Text>
+              ) : null}
             </View>
           </KeyboardAvoidingView>
         );

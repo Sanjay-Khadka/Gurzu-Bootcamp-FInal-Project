@@ -16,6 +16,7 @@ const FormInput = ({
   onChangeText,
   value,
   error,
+  errorMessage,
   secureTextEntry = null,
   onBlur,
   style,

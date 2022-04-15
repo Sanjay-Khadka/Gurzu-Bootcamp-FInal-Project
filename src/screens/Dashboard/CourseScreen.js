@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {NavigationHeader, ToggleButton} from '../../components';
 import {
@@ -6,28 +6,32 @@ import {
   AllCourseContainer,
   MyCourseContainer,
 } from '../../components';
-import {AllCourse} from '../../redux/actions/CourseActions';
+import {AllCourse, MyCourse} from '../../redux/actions/CourseActions';
 import {useDispatch, useSelector} from 'react-redux';
 
 const CourseScreen = () => {
-  const courseToken = useSelector(state => state.authReducer.authToken);
-
+  const userId = useSelector(state => state.authReducer.Login);
+  const userIdValue = userId?.data?.token;
+  const token = useSelector(state => state.authReducer.authToken);
   const [myCourse, setMyCourse] = useState(false);
   const [allCourse, setAllCourse] = useState(true);
-
   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(MyCourse(token));
+  //   dispatch(AllCourse(token));
+  // }, []);
   const handleTodoPress = () => {
+    dispatch(MyCourse(token));
     setMyCourse(!myCourse);
     setAllCourse(false);
   };
   const recentPress = () => {
     setAllCourse(!allCourse);
     setMyCourse(false);
-    dispatch(AllCourse(courseToken));
-    console.warn('this');
+    // dispatch(AllCourse(token));
   };
 
-  const handleGestuer = () => {
+  const handleGesture = () => {
     if (myCourse) {
       return <MyCourseContainer />;
     }
@@ -60,7 +64,7 @@ const CourseScreen = () => {
         />
       </View>
 
-      <View style={styles.content}>{handleGestuer()}</View>
+      <View style={styles.content}>{handleGesture()}</View>
     </View>
   );
 };
@@ -96,6 +100,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#004277',
   },
   content: {
+    marginHorizontal: 2,
+    backgroundColor: 'black',
     flex: 4,
     justifyContent: 'center',
     alignItems: 'center',

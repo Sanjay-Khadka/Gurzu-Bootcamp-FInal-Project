@@ -4,7 +4,7 @@ import {
   register,
   resetPassword,
   getToken,
-  getRepo,
+  passwordChange,
 } from '../actions/AuthActions';
 
 const initialState = {
@@ -12,7 +12,7 @@ const initialState = {
   authToken: null,
   Register: [],
   ResetPassword: {},
-  repo: {},
+  changePassword: {},
 };
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -39,6 +39,11 @@ const AuthReducer = (state = initialState, action) => {
     case resetPassword: {
       return {
         ResetPassword: action.payload,
+      };
+    }
+    case passwordChange: {
+      return {
+        changePassword: action.payload,
       };
     }
     default:

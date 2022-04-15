@@ -6,6 +6,7 @@ export const register = 'register';
 export const logout = 'logout';
 export const resetPassword = 'resetPassword';
 export const getToken = 'getToken';
+export const passwordChange = 'passwordChange';
 export const loginUser = logindata => {
   return async dispatch => {
     // console.warn({logindata});
@@ -21,9 +22,9 @@ export const loginUser = logindata => {
     try {
       const response = await axios(config);
       // console.warn(response.data.token);
-      const loginCredentials = response.data;
-      dispatch({type: login, payload: loginCredentials});
-      console.warn(loginCredentials);
+      // const loginCredentials = response.data;
+      dispatch({type: login, payload: response});
+      // console.warn(loginCredentials);
     } catch (error) {
       console.warn(error);
     }
@@ -44,8 +45,8 @@ export const userToken = logindata => {
 
     try {
       const response = await axios(config);
-      // console.warn(response.data.token);
       const token = response.data.token;
+      console.warn(response.data.token);
       dispatch({type: getToken, payload: token});
       // console.warn(token);
     } catch (error) {
@@ -103,6 +104,36 @@ export const forgotPassword = resetEmail => {
       .then(function (response) {
         console.log(JSON.stringify(response.data));
         dispatch({type: resetPassword, payload: response.data});
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+};
+
+export const handlePasswordChange = values => {
+  return async dispatch => {
+    var data = JSON.stringify({
+      current_password: values.oldPassword,
+      password: values.newpassword,
+      password_confirmation: values.confirmPassword,
+    });
+
+    var config = {
+      method: 'put',
+      url: `${url}/users/password`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3MSwiZXhwIjoxNjQ5ODg2NDk0fQ.EW2faQEnN5pmPgR6gt3zCHGQC1TD0FKKB4Iqbzt8Q1E',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(response => {
+        console.log(JSON.stringify(response.data));
+        dispatch({type: passwordChange, payload: response.data});
       })
       .catch(function (error) {
         console.log(error);

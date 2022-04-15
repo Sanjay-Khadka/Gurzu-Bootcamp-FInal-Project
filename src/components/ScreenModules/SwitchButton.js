@@ -1,17 +1,17 @@
 import React, {useState, isValidElement} from 'react';
 import {StyleSheet, Text, View, Switch, StatusBar} from 'react-native';
-const SwitchButton = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
+const SwitchButton = ({isEnabled, toggleSwitch}) => {
+  // const [isEnabled, setIsEnabled] = useState(false);
   const [text, setText] = useState('');
-  const toggleSwitch = () => {
-    if (isEnabled) {
-      setText('');
-    } else {
-      setText('');
-    }
+  // const toggleSwitch = () => {
+  //   if (isEnabled) {
+  //     setText('');
+  //   } else {
+  //     setText('');
+  //   }
 
-    setIsEnabled(previousState => !previousState);
-  };
+  //   setIsEnabled(previousState => !previousState);
+  // };
   return (
     <View style={StyleSheet.container}>
       <Text style={{margin: -2}}>{text}</Text>

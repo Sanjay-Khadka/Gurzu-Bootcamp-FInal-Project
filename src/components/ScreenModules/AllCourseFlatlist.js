@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -9,26 +9,51 @@ import {
   Switch,
 } from 'react-native';
 import SwitchButton from './SwitchButton';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
+import {enrollCourse} from '../../redux/actions/CourseActions';
 
 const {height, width} = Dimensions.get('window');
 const AllCourseFlatlist = () => {
+  const dispatch = useDispatch();
+  const [courseDataLocal, setCourseDataLocal] = useState([]);
+  const token = useSelector(state => state.authReducer.authToken);
+  // console.warn(token);
+  const userId = useSelector(state => state.authReducer.Login);
+
   const navigation = useNavigation();
 
-  const navigateCourseDetails = () => {
-    console.warn('pressed');
-    // navigation.navigate('CourseDetails');
+  const toggleBtn = id => {
+    console.warn(id);
+    const newCourseData = courseDataLocal.map(value =>
+      id === value.id ? {...value, isSelected: !value.isSelected} : value,
+    );
+
+    setCourseDataLocal(newCourseData);
+  };
+
+  useEffect(() => {
+    const updatedCourseData = coursedata.map(value => ({
+      ...value,
+      isSelected: false,
+    }));
+
+    setCourseDataLocal(updatedCourseData);
+  }, [coursedata]);
+
+  const navigateCourseDetails = courseItemData => {
+    const userIdValue = userId?.data?.id;
+
+    toggleBtn(courseItemData?.id);
+    dispatch(enrollCourse(token, userIdValue, courseItemData?.id));
   };
   const coursedata = useSelector(state => state.mainscreen.AllCourse.data);
-  console.warn(coursedata);
 
   const renderItem = ({item}) => {
-    // console.warn(item.id);
     return (
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigateCourseDetails}>
+        onPress={() => navigateCourseDetails(item)}>
         <View style={styles.container}>
           <View style={styles.coursetitle}>
             <Text style={styles.textcourse}>{item.name}</Text>
@@ -36,7 +61,10 @@ const AllCourseFlatlist = () => {
             <Text style={styles.assignment}>{item.chapter}</Text>
           </View>
 
-          <SwitchButton />
+          <SwitchButton
+            isEnabled={item.isSelected}
+            toggleSwitch={() => toggleBtn(item.id)}
+          />
         </View>
       </TouchableOpacity>
     );
@@ -44,7 +72,7 @@ const AllCourseFlatlist = () => {
 
   return (
     <FlatList
-      data={coursedata}
+      data={courseDataLocal}
       keyExtractor={item => item.id}
       renderItem={renderItem}
     />

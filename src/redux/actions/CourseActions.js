@@ -4,30 +4,30 @@ export const getMyCourse = 'getCourse';
 export const getAllCourse = 'getAllCourse';
 export const getChapter = 'getChapter';
 export const enrollment = 'enrollment';
-export const MyCourse = courseToken => {
+export const MyCourse = token => {
   return async dispatch => {
     var config = {
       method: 'get',
-      url: `${url}/courses/1`,
+      url: `${url}/users/enrollments`,
       headers: {
-        Authorization: `Bearer ${courseToken}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 
-    axios(config)
-      .then(function (response) {
-        // console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    try {
+      const {data} = await axios(config);
+      console.warn(JSON.stringify(data));
+      dispatch({type: getMyCourse, payload: data});
+    } catch (error) {
+      console.warn(error);
+    }
   };
 };
 
-export const enrollCourse = (courseToken, currentUser) => {
+export const enrollCourse = (authToken, currentUserId, courseId) => {
   return async dispatch => {
     var data = JSON.stringify({
-      user_id: currentUser,
+      user_id: currentUserId,
     });
 
     var config = {
@@ -35,29 +35,28 @@ export const enrollCourse = (courseToken, currentUser) => {
       url: `https://avocado.pagekite.me/courses/${courseId}/enrollments`,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${courseToken}`,
+        Authorization: `Bearer ${authToken}`,
       },
       data: data,
     };
 
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        dispatch({type: enrollment, payload: response.data});
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    try {
+      const {data} = await axios(config);
+      console.warn(JSON.stringify(data));
+      dispatch({type: enrollment, payload: data});
+    } catch (error) {
+      console.warn(error);
+    }
   };
 };
-export const AllCourse = courseToken => {
+export const AllCourse = token => {
   return async dispatch => {
     var config = {
       method: 'get',
       url: `${url}/courses`,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${courseToken}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 

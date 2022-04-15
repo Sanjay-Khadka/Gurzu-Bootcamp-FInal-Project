@@ -1,5 +1,4 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 // import { NavigationContainer } from '@react-navigation/native';
 import {CourseScreen, SettingsScreen, ChangePassword} from '../screens';
 // import Icon from 'react-native-vector-icons/dist/Entypo';
