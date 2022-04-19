@@ -4,6 +4,7 @@ import {
   LoginScreen,
   RegisterScreen,
   ForgotPasswordScreen,
+  ResetPasswordScreen,
 } from '../screens/LandingScreen';
 
 const Stack = createNativeStackNavigator();
@@ -18,6 +19,10 @@ const StackNav = () => {
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
       <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+      <Stack.Screen
+        name="ResetPasswordScreen"
+        component={ResetPasswordScreen}
+      />
     </Stack.Navigator>
   );
 };

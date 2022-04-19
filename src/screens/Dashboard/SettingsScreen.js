@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  ToastAndroid,
 } from 'react-native';
 import SwitchButton from '../../components/ScreenModules/SwitchButton';
 import {useNavigation} from '@react-navigation/native';
@@ -22,6 +23,11 @@ const SettingsScreen = () => {
   const navigation = useNavigation();
   const maintoAuth = () => {
     dispatch(logoutUser());
+    ToastAndroid.showWithGravity(
+      'Logged Out',
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER,
+    );
     // bottomnavigation.navigate('stack')
   };
 
@@ -41,7 +47,9 @@ const SettingsScreen = () => {
         </View>
 
         <View style={styles.settingtext}>
-          <TouchableOpacity style={styles.buttonstyle}>
+          <TouchableOpacity
+            style={styles.buttonstyle}
+            onPress={() => navigation.navigate('profileScreen')}>
             <Text style={styles.settingsColor}>Edit Profile</Text>
             <Icon color={'#616161'} name="chevron-right" size={20} />
           </TouchableOpacity>
@@ -109,11 +117,6 @@ const styles = StyleSheet.create({
     marginTop: 35,
     // backgroundColor: '#000000',
   },
-  notificationcontainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
   account: {
     color: '#004277',
     marginLeft: 10,
@@ -129,7 +132,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   logoutbutton: {
-    marginVertical: '20%',
+    marginVertical: '70%',
     position: 'relative',
     top: 22,
     justifyContent: 'center',

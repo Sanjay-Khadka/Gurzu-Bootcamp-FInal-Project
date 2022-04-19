@@ -1,3 +1,4 @@
 import FormInput from './FormInput';
 import PasswordInput from './PasswordInput';
-export {FormInput, PasswordInput};
+import EditProfile from './editProfile';
+export {FormInput, PasswordInput, EditProfile};

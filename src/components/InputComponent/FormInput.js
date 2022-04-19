@@ -16,6 +16,7 @@ const FormInput = ({
   onChangeText,
   value,
   error,
+  KeyboardType = '',
   errorMessage,
   secureTextEntry = null,
   onBlur,
@@ -36,6 +37,8 @@ const FormInput = ({
           onChangeText={onChangeText}
           value={value}
           onBlur={onBlur}
+          {...more}
+          keyboardType={KeyboardType}
         />
       </View>
     </View>

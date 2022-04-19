@@ -1,7 +1,10 @@
 import React from 'react';
 import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-
+import {useSelector} from 'react-redux';
 const Grades = () => {
+  const gradesdata = useSelector(state => state.mainscreen.Grade);
+  const allGrades = gradesdata?.data;
+  // console.warn(allGrades);
   const scores = [
     {
       id: '1',
@@ -46,7 +49,7 @@ const Grades = () => {
       status: 'submitted',
     },
     {
-      id: '1',
+      id: '8',
       name: 'backend',
       score: 20,
       status: 'done',
@@ -55,15 +58,15 @@ const Grades = () => {
   const renderItem = ({item}) => {
     return (
       <View style={styles.container}>
-        <Text style={styles.textcourse}>{item.name}</Text>
-        <Text style={styles.textscore}>{item.score}</Text>
-        <Text style={styles.textstatus}>{item.status}</Text>
+        <Text style={styles.textcourse}>{item.id}</Text>
+        <Text style={styles.textscore}>{item.rating}</Text>
+        <Text style={styles.textstatus}>{item.submission.body}</Text>
       </View>
     );
   };
   return (
     <FlatList
-      data={scores}
+      data={allGrades}
       keyExtractor={item => item.id}
       renderItem={renderItem}
     />

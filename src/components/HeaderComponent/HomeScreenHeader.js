@@ -6,15 +6,20 @@ const {height} = Dimensions.get('window');
 
 const HomeScreenHeader = () => {
   const userdata = useSelector(state => state.authReducer.Login);
-  // console.warn(userdata);
+  const firstname = userdata?.data?.data.first_name;
+  const lastname = userdata?.data?.data.last_name;
+  const profile = useSelector(state => state.mainscreen.photo);
+  // console.warn(profile);
   return (
     <View style={styles.header}>
       <View>
         <Text style={styles.greetingtext}>Hi</Text>
-        {/* <Text style={styles.userinfo}>{userdata.data.first_name}</Text> */}
+        <Text style={styles.userinfo}>
+          {firstname} {lastname}
+        </Text>
       </View>
 
-      {/* <Image style={styles.img} source={require('../../assets/profile.png')} /> */}
+      {/* <Image style={styles.img} source={{uri: profile}} /> */}
     </View>
   );
 };
@@ -24,7 +29,7 @@ const styles = StyleSheet.create({
   header: {
     position: 'relative',
     top: 0,
-    height: height / 9,
+    height: height / 8,
     backgroundColor: '#004277',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,

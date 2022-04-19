@@ -6,6 +6,7 @@ export const register = 'register';
 export const logout = 'logout';
 export const resetPassword = 'resetPassword';
 export const getToken = 'getToken';
+import {ToastAndroid} from 'react-native';
 export const passwordChange = 'passwordChange';
 export const loginUser = logindata => {
   return async dispatch => {
@@ -21,12 +22,19 @@ export const loginUser = logindata => {
 
     try {
       const response = await axios(config);
-      // console.warn(response.data.token);
-      // const loginCredentials = response.data;
       dispatch({type: login, payload: response});
+      ToastAndroid.showWithGravity(
+        'Login Successfull',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
       // console.warn(loginCredentials);
     } catch (error) {
-      console.warn(error);
+      ToastAndroid.showWithGravity(
+        'Please input correct credentials',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
     }
   };
 };
@@ -74,6 +82,11 @@ export const registerUser = registerData => {
     axios(config)
       .then(function (response) {
         console.log(JSON.stringify(response.data));
+        ToastAndroid.showWithGravity(
+          'Created User Successfully',
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER,
+        );
       })
       .catch(function (error) {
         console.log(error);
@@ -111,32 +124,42 @@ export const forgotPassword = resetEmail => {
   };
 };
 
-export const handlePasswordChange = values => {
+export const handlePasswordChange = (values, token) => {
   return async dispatch => {
     var data = JSON.stringify({
-      current_password: values.oldPassword,
-      password: values.newpassword,
-      password_confirmation: values.confirmPassword,
+      user: {
+        current_password: values.oldPassword,
+        password: values.newPassword,
+        password_confirmation: values.confirmPassword,
+      },
     });
 
     var config = {
-      method: 'put',
-      url: `${url}/users/password`,
+      method: 'patch',
+      url: `${url}/users/update`,
       headers: {
         'Content-Type': 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3MSwiZXhwIjoxNjQ5ODg2NDk0fQ.EW2faQEnN5pmPgR6gt3zCHGQC1TD0FKKB4Iqbzt8Q1E',
+        Authorization: `Bearer ${token}`,
       },
       data: data,
     };
 
     axios(config)
-      .then(response => {
-        console.log(JSON.stringify(response.data));
-        dispatch({type: passwordChange, payload: response.data});
+      .then(function (response) {
+        ToastAndroid.showWithGravity(
+          'Password Changed Successfully',
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER,
+        );
+        // return {type: logout, payload: null};
       })
       .catch(function (error) {
-        console.log(error);
+        console.warn(error);
+        ToastAndroid.showWithGravity(
+          'An error occured please try again',
+          ToastAndroid.LONG,
+          ToastAndroid.CENTER,
+        );
       });
   };
 };

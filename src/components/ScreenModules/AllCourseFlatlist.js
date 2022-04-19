@@ -21,8 +21,6 @@ const AllCourseFlatlist = () => {
   // console.warn(token);
   const userId = useSelector(state => state.authReducer.Login);
 
-  const navigation = useNavigation();
-
   const toggleBtn = id => {
     console.warn(id);
     const newCourseData = courseDataLocal.map(value =>
@@ -30,25 +28,17 @@ const AllCourseFlatlist = () => {
     );
 
     setCourseDataLocal(newCourseData);
+    console.log(newCourseData);
   };
-
-  useEffect(() => {
-    const updatedCourseData = coursedata.map(value => ({
-      ...value,
-      isSelected: false,
-    }));
-
-    setCourseDataLocal(updatedCourseData);
-  }, [coursedata]);
+ 
 
   const navigateCourseDetails = courseItemData => {
-    const userIdValue = userId?.data?.id;
-
+    const userIdValue = userId?.data?.data.id;
     toggleBtn(courseItemData?.id);
     dispatch(enrollCourse(token, userIdValue, courseItemData?.id));
   };
   const coursedata = useSelector(state => state.mainscreen.AllCourse.data);
-
+  console.warn(coursedata);
   const renderItem = ({item}) => {
     return (
       <TouchableOpacity
@@ -58,7 +48,7 @@ const AllCourseFlatlist = () => {
           <View style={styles.coursetitle}>
             <Text style={styles.textcourse}>{item.name}</Text>
 
-            <Text style={styles.assignment}>{item.chapter}</Text>
+            <Text style={styles.assignment}>{item.chapter_count} chapters</Text>
           </View>
 
           <SwitchButton
@@ -72,6 +62,7 @@ const AllCourseFlatlist = () => {
 
   return (
     <FlatList
+      showsVerticalScrollIndicator={false}
       data={courseDataLocal}
       keyExtractor={item => item.id}
       renderItem={renderItem}
@@ -84,7 +75,7 @@ export default AllCourseFlatlist;
 const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
-    marginVertical: 5,
+    marginVertical: 8,
     elevation: 3,
     // justifyContent: 'center',
     width: width - 10,
@@ -134,7 +125,8 @@ const styles = StyleSheet.create({
     color: '#616161',
     fontWeight: '400',
     fontFamily: 'WorkSans-Regular',
-    marginHorizontal: 5,
+    marginHorizontal: 15,
+    marginVertical: 2,
   },
   goto: {
     fontSize: 12,

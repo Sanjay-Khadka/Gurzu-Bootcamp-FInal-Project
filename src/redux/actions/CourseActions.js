@@ -4,6 +4,7 @@ export const getMyCourse = 'getCourse';
 export const getAllCourse = 'getAllCourse';
 export const getChapter = 'getChapter';
 export const enrollment = 'enrollment';
+import {ToastAndroid} from 'react-native';
 export const MyCourse = token => {
   return async dispatch => {
     var config = {
@@ -42,10 +43,20 @@ export const enrollCourse = (authToken, currentUserId, courseId) => {
 
     try {
       const {data} = await axios(config);
-      console.warn(JSON.stringify(data));
+      ToastAndroid.showWithGravity(
+        'Enrolled in the Course Successfully',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
+      // console.warn(JSON.stringify(data));
       dispatch({type: enrollment, payload: data});
     } catch (error) {
-      console.warn(error);
+      // console.warn(error);
+      ToastAndroid.showWithGravity(
+        'you have already enrolled in this course',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+      );
     }
   };
 };

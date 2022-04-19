@@ -16,17 +16,17 @@ const MyCourseFlatList = () => {
   const navigation = useNavigation();
 
   const gotoCourseDetails = () => {
-    console.warn('this is pressed');
-    navigation.navigate('CourseDetails');
+    navigation.navigate('individualCourse');
   };
 
   const renderItem = ({item}) => {
+    console.warn(item.image.url);
     return (
       <TouchableOpacity
         style={styles.maincontainer}
         onPress={gotoCourseDetails}>
         <View style={styles.container}>
-          <Image style={styles.logo} source={item.image.filename} />
+          {/* <Image style={styles.logo} source={{uri: item.image.url}} /> */}
           <Text style={styles.assignment}>{item.name}</Text>
         </View>
       </TouchableOpacity>
@@ -80,8 +80,9 @@ const styles = StyleSheet.create({
   },
 
   logo: {
+    resizeMode: 'contain',
     borderRadius: 15,
-    height: height / 5,
-    width: width / 2.5,
+    height: 130,
+    width: 130,
   },
 });

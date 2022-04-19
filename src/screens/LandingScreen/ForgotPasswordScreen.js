@@ -14,7 +14,7 @@ import {FormInput} from '../../components';
 
 const {height, width} = Dimensions.get('screen');
 import {useNavigation} from '@react-navigation/native';
-import {forgotPassword} from '../../redux/actions/assignmentGrades';
+import {forgotPassword} from '../../redux/actions/AuthActions';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 const validationSchema = Yup.object({

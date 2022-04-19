@@ -13,6 +13,7 @@ import {
   PasswordInput,
   ErrorInput,
   PasswordError,
+  EditProfile,
 } from './InputComponent';
 import {
   RecentContainer,
@@ -40,4 +41,4 @@ export {
   MyCourseFlatlist,
   AllCourseFlatlist,
 };
-export {FormInput, ErrorInput};
+export {FormInput, EditProfile};

@@ -5,6 +5,12 @@ import {
   CourseScreen,
   CourseDetails,
   ChangePassword,
+  ChangeProfile,
+  AllChapters,
+  IndividualChapters,
+  AllAssignment,
+  IndividualAssignment,
+  IndividualCourse,
 } from './Dashboard';
 import TestScreen from './LandingScreen/testscreen';
 import {LoginScreen, RegisterScreen} from './LandingScreen';
@@ -16,5 +22,11 @@ export {
   CourseScreen,
   CourseDetails,
   ChangePassword,
+  ChangeProfile,
+  AllChapters,
+  IndividualChapters,
+  AllAssignment,
+  IndividualAssignment,
+  IndividualCourse,
 };
 export default TestScreen;

@@ -1,83 +1,55 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Dimensions,
-  TouchableOpacity,
-  StyleSheet,
-  Touchable,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-const {width, height} = Dimensions.get('window');
-const FormTest = ({
-  labelText = '',
-  placeholderText = '',
-  onChangeText,
-  value,
-  secureTextEntry = null,
-  onBlur,
-  style,
-  ...more
-}) => {
+/* eslint-disable react-native/no-inline-styles */
+import React, {useState} from 'react';
+import {Tab, TabView} from '@rneui/themed';
+import {Text} from 'react-native';
+const FormTest = () => {
+  const [index, setIndex] = useState(0);
+
   return (
-    <View style={{marginTop: 8}}>
-      <Text style={styles.labelstyle}>{labelText}</Text>
-      <View
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{
-          padding: 8,
-          width: width - 20,
-          height: 55,
-          backgroundColor: '#EBF9FF',
-          borderRadius: 5,
-          justifyContent: 'space-between',
-          fontFamily: 'WorkSans-Regular',
-          fontSize: 12,
-          color: '#2971AB',
-          flexDirection: 'row',
-          alignItems: 'center',
-          ...style,
-        }}>
-        <TextInput
-          style={styles.input}
-          placeholder={placeholderText}
-          placeholderTextColor="#2971AB"
-          onChangeText={onChangeText}
-          value={value}
-          onBlur={onBlur}
+    <>
+      <Tab
+        value={index}
+        onChange={e => setIndex(e)}
+        indicatorStyle={{
+          backgroundColor: 'blue',
+          height: 3,
+        }}
+        containerStyle={{backgroundColor: 'white', color: '#004277'}}>
+        <Tab.Item
+          containerStyle={{backgroundColor: 'white'}}
+          title="Recent"
+          titleStyle={{fontSize: 12, height: 10, color: '#004277'}}
+          // icon={{ name: 'timer', type: 'ionicon', color: 'white' }}
         />
-      </View>
-    </View>
+        <Tab.Item
+          containerStyle={{backgroundColor: 'white'}}
+          title="favorite"
+          titleStyle={{fontSize: 12, height: 10, color: '#004277'}}
+          // icon={{ name: 'heart', type: 'ionicon', color: 'white' }}
+        />
+        <Tab.Item
+          containerStyle={{backgroundColor: 'white'}}
+          title="cart"
+          titleStyle={{fontSize: 12, height: 10, color: '#004277'}}
+          // icon={{ name: 'cart', type: 'ionicon', color: 'white' }}
+        />
+      </Tab>
+
+      <TabView value={index} onChange={setIndex} animationType="spring">
+        <TabView.Item
+          style={{backgroundColor: 'red', width: '100%', height: '10'}}>
+          <Text h1>Recent</Text>
+        </TabView.Item>
+        <TabView.Item
+          style={{backgroundColor: 'blue', width: '100%', height: '10'}}>
+          <Text h1>Favorite</Text>
+        </TabView.Item>
+        <TabView.Item
+          style={{backgroundColor: 'green', width: '100%', height: '10'}}>
+          <Text h1>Cart</Text>
+        </TabView.Item>
+      </TabView>
+    </>
   );
 };
-
 export default FormTest;
-
-const styles = StyleSheet.create({
-  labelstyle: {
-    fontFamily: 'WorkSans-Regular',
-    color: '#004277',
-    fontSize: 14,
-    marginBottom: 3,
-  },
-  input: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: 12,
-    color: '#2971AB',
-    width: width - 70,
-  },
-  viewcontainer: {
-    padding: 8,
-    width: width - 20,
-    height: 55,
-    backgroundColor: '#EBF9FF',
-    borderRadius: 5,
-    justifyContent: 'space-between',
-    fontFamily: 'WorkSans-Regular',
-    fontSize: 12,
-    color: '#2971AB',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});

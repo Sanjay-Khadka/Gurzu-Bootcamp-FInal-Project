@@ -23,6 +23,7 @@ const validationSchema = Yup.object({
   ),
 });
 const ChangePassword = () => {
+  const token = useSelector(state => state.authReducer.authToken);
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const resetPassword = {
@@ -36,7 +37,7 @@ const ChangePassword = () => {
       validationSchema={validationSchema}
       onSubmit={(values, formikActions) => {
         console.warn('this is pressed');
-        dispatch(handlePasswordChange(values));
+        dispatch(handlePasswordChange(values, token));
       }}>
       {({handleChange, handleBlur, handleSubmit, errors, values, touched}) => {
         const {oldPassword, newPassword, confirmPassword} = values;
@@ -77,7 +78,9 @@ const ChangePassword = () => {
                   secureTextEntry={true}
                 />
               </View>
-              <TouchableOpacity style={styles.changepassword}>
+              <TouchableOpacity
+                style={styles.changepassword}
+                onPress={handleSubmit}>
                 <Text style={styles.buttonText}>Change Password</Text>
               </TouchableOpacity>
             </View>

@@ -1,17 +1,19 @@
 import {getMyCourse, getAllCourse, enrollment} from '../actions/CourseActions';
-import {getGrade, getAssignment} from '../actions/assignmentGrades';
+import {getAllGrade, getAssignment} from '../actions/assignmentGrades';
+import {changeProfile, ChangePhoto} from '../actions/ProfileUpdate';
 const initialState = {
   Assignment: [],
   MyCourse: {},
   enrolled: {},
   AllCourse: {},
   Task: [],
-  Grade: [],
+  Grade: {},
+  photo: {},
 };
 
 const ComponentReducer = (state = initialState, action) => {
   switch (action.type) {
-    case getGrade:
+    case getAllGrade:
       return {
         ...state,
         Grade: action.payload,
@@ -36,6 +38,17 @@ const ComponentReducer = (state = initialState, action) => {
         ...state,
         AllCourse: action.payload,
       };
+    case changeProfile: {
+      return {
+        ...state,
+      };
+    }
+    case ChangePhoto: {
+      return {
+        ...state,
+        photo: action.payload,
+      };
+    }
 
     default:
       return state;

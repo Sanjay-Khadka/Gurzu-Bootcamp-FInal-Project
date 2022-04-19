@@ -5,7 +5,6 @@ import {NavigationContainer} from '@react-navigation/native';
 const GurzuLearning = () => {
   const token = useSelector(state => state.authReducer.authToken);
   console.warn(token);
-
   return (
     <NavigationContainer>
       {token ? <BottomNav /> : <StackNav />}

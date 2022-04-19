@@ -1,29 +1,32 @@
 import axios from 'axios';
-export const getGrade = 'getGrade';
+export const getAllGrade = 'getGrade';
 export const getAssignment = 'getAssignment';
 export const url = 'https://avocado.pagekite.me';
 
-export const gradesDetail = () => {
+export const gradesDetail = (token, userId, ratings) => {
   return async dispatch => {
+    var data = JSON.stringify({
+      rating: 7.5,
+      user_id: 71,
+    });
+
     var config = {
-      method: 'post',
-      url: 'https://c249-103-41-172-114.ngrok.io/users',
+      method: 'get',
+      url: `https://avocado.pagekite.me/users/grades`,
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      data: gradesData,
-      s,
+      data: data,
     };
 
-    await axios(config)
-      .then(gradesResponse => {
-        const gradesJson = gradesResponse.json();
-        console.warn(gradesJson);
-        dispatch({type: getGrade, payload: gradesJson});
-      })
-      .catch(error => {
-        console.warn(error);
-      });
+    try {
+      const gradesData = await axios(config);
+      // console.warn(gradesData.data);
+      dispatch({type: getAllGrade, payload: gradesData});
+    } catch (error) {
+      console.warn(error);
+    }
   };
 };
 

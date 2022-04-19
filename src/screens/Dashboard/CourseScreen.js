@@ -28,7 +28,7 @@ const CourseScreen = () => {
   const recentPress = () => {
     setAllCourse(!allCourse);
     setMyCourse(false);
-    // dispatch(AllCourse(token));
+    dispatch(AllCourse(token));
   };
 
   const handleGesture = () => {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   content: {
     marginHorizontal: 2,
-    backgroundColor: 'black',
+    // backgroundColor: 'black',
     flex: 4,
     justifyContent: 'center',
     alignItems: 'center',

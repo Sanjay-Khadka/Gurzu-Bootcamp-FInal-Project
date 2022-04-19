@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
+import {loginUser} from '../../redux/actions/AuthActions';
+import {useFocusEffect} from '@react-navigation/native';
 import {ToggleButton} from '../../components';
 import {
   HomeScreenHeader,
@@ -23,23 +31,18 @@ const HomeScreen = () => {
   const [todo, setTodo] = useState(false);
   const [assignment, setAssignment] = useState(true);
   const [recents, setRecent] = useState(false);
-  // const [color, setColor] = useState(false);
   const userdata = [useSelector(state => state.authReducer.Login)];
-  // console.log(userdata);
+  const firstname = userdata?.data?.data.first_name;
+  console.warn(userdata);
+  const token = useSelector(state => state.authReducer.authToken);
   const dispatch = useDispatch();
-  const handleTodoPress = () => {
-    setTodo(!todo);
-    setGrade(false);
-    setAssignment(false);
-    setRecent(false);
-    dispatch(tasksDetail());
-  };
+
   const handleGradePress = () => {
     setGrade(!grade);
     setTodo(false);
     setAssignment(false);
     setRecent(false);
-    // dispatch(gradesDetail());
+    dispatch(gradesDetail(token));
   };
   const assignPress = () => {
     setAssignment(!assignment);
@@ -68,6 +71,19 @@ const HomeScreen = () => {
     }
     if (recents) {
       return <RecentContainer />;
+    }
+    if (recents !== true && assignment !== true && grade !== true) {
+      return (
+        <View>
+          {userdata !== null ? (
+            <Text>you have not enrolled in any course</Text>
+          ) : (
+            <Text style={{fontSize: 17, color: '#004277'}}>
+              Please press on one of the buttons above
+            </Text>
+          )}
+        </View>
+      );
     }
   };
 
@@ -110,7 +126,6 @@ const HomeScreen = () => {
           onPress={() => assignPress()}
         />
       </View>
-
       <View style={styles.content}>{handleGestuer()}</View>
     </View>
   );
@@ -145,7 +160,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#004277',
   },
   content: {
-    // backgroundColor: 'black',
     flex: 2.5,
     display: 'flex',
     justifyContent: 'center',

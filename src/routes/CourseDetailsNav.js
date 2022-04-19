@@ -1,12 +1,12 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 // import { NavigationContainer } from '@react-navigation/native';
-import {CourseScreen} from '../screens';
+import {CourseScreen, IndividualChapters} from '../screens';
 // import Icon from 'react-native-vector-icons/dist/Entypo';
 import Icon from 'react-native-vector-icons/dist/Feather';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {CourseDetails} from '../screens/Dashboard';
-
+import {IndividualCourse} from '../screens/Dashboard';
+import {AllAssignment} from '../screens';
 const Stack = createNativeStackNavigator();
 
 const CourseDetailsNav = () => {
@@ -17,7 +17,8 @@ const CourseDetailsNav = () => {
       }}
       initialRouteName="CourseScreen">
       <Stack.Screen name="CourseScreen" component={CourseScreen} />
-      <Stack.Screen name="CourseDetails" component={CourseDetails} />
+      <Stack.Screen name="individualCourse" component={AllAssignment} />
+      {/* <Stack.Screen name="IndividualChapters" component={IndividualChapters} /> */}
     </Stack.Navigator>
   );
 };
